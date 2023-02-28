@@ -9,9 +9,11 @@
 
 int main(__attribute__((unused))int argc, char *argv[])
 {
-	ShellData data;
+	ShellData data, *ptr_data;
+	
+	ptr_data = &data;
 	signal(SIGINT, sigint_handler);
+	assign(ptr_data, argv);
+	program_integration(ptr_data);
+	return (0);
 }
-	
-	
-	
