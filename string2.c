@@ -84,36 +84,6 @@ char *my_strtok(char *str, const char *delim)
 }
 
 /**
-*_strdup - creates a new memory location and duplicated a string
-*@str: pointer ro string to be duplicated
-*Return: a pointer to a newly allocated space in memory
-*It contains a copy of the string given as a parameter
-*/
-
-char *_strdup(char *str)
-{
-	int i, len = _strlen(str);
-	char *copy;
-
-	if (str == NULL)
-		return (NULL);
-
-	copy = malloc(len + 1);
-	if (copy == NULL)
-		return (NULL);
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		copy[i] = str[i];
-		i++;
-	}
-	copy[i] = '\0';
-	return (copy);
-}
-
-
-/**
 *_strndup - creates a new memory location and duplicated a string of specified size
 *@str: pointer ro string to be duplicated
 *@i: bytes
@@ -143,4 +113,32 @@ char *_strndup(char *str, int i)
 	
 	copy[j] = '\0';
 	return (copy);
+}
+/**
+*_realloc_double_ptr - reallocates a memory block of a double pointer.
+*@old_ptr: double pointer to the memory previously allocated.
+*@old_size_bytes: size, in bytes, of the allocated space of old_ptr.
+*@new_size_bytes: new size, in bytes, of the new memory block.
+*Return: Returns old_ptr.
+*If new_size_bytes == old_size_bytes, returns old_ptr without changes.
+*If malloc fails, returns NULL.
+*/
+char **_realloc_double_ptr(char **old_ptr, unsigned int old_bytes, unsigned int new_bytes)
+{
+	char **new_ptr;
+	unsigned int i;
+
+	if (old_ptr == NULL)
+		return (malloc(sizeof(char *) * new_bytes));
+	if (new_bytes == old_bytes)
+		return (old_ptr);
+	new_ptr = malloc(sizeof(char *) * new_bytes);
+	if (new_ptr == NULL)
+		return (NULL);
+	for (i = 0; i < old_bytes; i++)
+		new_ptr[i] = old_ptr[i];
+
+	free(old_ptr);
+
+	return (new_ptr);
 }
