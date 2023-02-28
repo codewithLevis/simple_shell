@@ -61,7 +61,7 @@ char *my_strtok(char *str, const char *delim)
 		{
 			if (next_token[i] == delim[j])
 			{
-				token = strndup(next_token, i);
+				token = _strndup(next_token, i);
 				if (token == NULL)
 				{
 					return (NULL);
@@ -76,7 +76,7 @@ char *my_strtok(char *str, const char *delim)
 
 	if (next_token != NULL && *next_token != '\0')
 	{
-		token = strdup(next_token);
+		token = _strdup(next_token);
 		next_token = NULL;
 	}
 
