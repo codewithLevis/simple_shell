@@ -141,3 +141,45 @@ char *_getenv(const char *value, char **env)
 
 	return (ptr_env);
 }
+
+
+/**
+ * set_environment_variable - sets an environment variable
+ *
+ * @key: name of the variable to be set
+ * @value: value to be set for the variable
+ * @datash: data relevant (environ)
+ * Return: no return
+ */
+void _set2env(char *key, char *value, ShellData *ptr)
+{
+	int index, len_env;
+	char *curr_value, *curr_key;
+
+	len_env = 0;
+	while ((*ptr).environment_vars[len_env] != NULL)
+	{
+		len_env++;
+	}
+
+	for (index = 0; index < len_env; index++)
+	{
+		curr_value = _strdup((*ptr).environment_vars[index]);
+		curr_key = my_strtok(curr_value, "=");
+
+		if (_strcmp(curr_key, key) == 0)
+		{
+			free((*ptr).environment_vars[index]);
+			(*ptr).environment_vars[index] = _create_env_var(curr_key, value);
+			free(curr_value);
+			return;
+		}
+
+		free(curr_value);
+	}
+
+	(*ptr).environment_vars = my_reallocate((*ptr).environment_vars, len_env, sizeof(char *) * (len_env + 2));
+	(*ptr).environment_vars[environ_length] = _create_env_var(key, value);
+	(*ptr).environment_vars[environ_length + 1] = NULL;
+}
+
