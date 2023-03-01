@@ -170,7 +170,7 @@ int find_syntax_error(ShellData *ptr_data, char *input)
 
 	if (res == -1)
 	{
-		print_syntax_error(ptr_data, input, offset, 0);
+		print_shell_error(ptr_data, input, offset, 0);
 		return (1);
 	}
 
@@ -178,7 +178,7 @@ int find_syntax_error(ShellData *ptr_data, char *input)
 
 	if (res != 0)
 	{
-		print_syntax_error(ptr_data, input, offset, 1);
+		print_shell_error(ptr_data, input, offset, 1);
 		return (1);
     }
     return (0);
