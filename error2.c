@@ -125,7 +125,7 @@ char *exit_shell_err(ShellData *ptr)
 	char *err;
 	char *str;
 
-	str = _toa(prt->command_counter);
+	str = _itoa(prt->command_counter);
 	len = sprintf(NULL, "%s: %s: %s: Illegal number: %s\n",  pt->command_line_args[0], ver_str, data->parsed_input_args[0], data->parsed_input_args[1]) + 1;
 	err = malloc(sizeof(char) * len);
 	if (err == NULL)
