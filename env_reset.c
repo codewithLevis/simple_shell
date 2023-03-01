@@ -111,3 +111,33 @@ int _unsetenv(ShellData *ptr)
 	ptr->environment_vars = new_environment_vars;
 	return (1);
 }
+
+/**
+*_getenv - gets the value of the requested environment variable
+*@value: name of the environment variable
+*@env: pointer to the environment variables array
+*Return: pointer to the value of the environment variable, NULL if not found
+*/
+char *_getenv(const char *value, char **env)
+{
+	char *ptr_env;
+	int i, j;
+
+	ptr_env = NULL;
+	j = 0;
+
+	for (i = 0; env[i]; i++)
+	{
+
+		j = 0;
+		while (env[i][j] == value[j] && value[j] != '\0')
+			j++;
+		if (env[i][j] == '=' && value[j] == '\0')
+		{
+			ptr_env = &env[i][j + 1];
+			break;
+		}
+	}
+
+	return (ptr_env);
+}
