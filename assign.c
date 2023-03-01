@@ -18,7 +18,7 @@ void assign(ShellData *shell_data, char **command_line_args)
 	shell_data->user_input = NULL;
 	shell_data->parsed_input_args = NULL;
 	shell_data->environment_vars = NULL;
-	shell_data->process_id = aux_itoa(getpid());
+	shell_data->process_id = _itoa(getpid());
 
 	for (i = 0; environ[i]; i++)
 		;
@@ -26,7 +26,7 @@ void assign(ShellData *shell_data, char **command_line_args)
 	shell_data->environment_vars = malloc(sizeof(char *) * (i + 1));
 
 	for (i = 0; environ[i]; i++)
-		shell_data->environment_vars[i] = strdup(environ[i]);
+		shell_data->environment_vars[i] = _strdup(environ[i]);
 
 	shell_data->environment_vars[i] = NULL;
 }
