@@ -66,7 +66,7 @@ char **tokenize(char *input, const char *delim)
 
 			if (tokens == NULL)
 			{
-				write(STDERR_FILENO, ": allocation error\n", 18);
+				dprintf(STDERR_FILENO, ": allocation error\n");
 				exit(EXIT_FAILURE);
 			}
 		}
