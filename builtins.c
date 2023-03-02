@@ -76,7 +76,7 @@ int exit_handler(ShellData *ptr)
 		if (!is_digit || str_len > 10 || is_big_number)
 		{
 			handle_error(ptr, 2);
-			dprintf(STDERR_FILENO, "hsh: %d: exit: Illegal number: %s\n", data->line_count, data->args[1]);
+/*dprintf(STDERR_FILENO, "hsh: %d: exit: Illegal number: %s\n", data->line_count, data->args[1]);*/
 			(*ptr).exit_status = 2;
 			return (1);
 		}
