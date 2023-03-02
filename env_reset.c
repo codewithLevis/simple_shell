@@ -40,7 +40,7 @@ int _setenv(ShellData *ptr)
 	for (i = 0; ptr->environment_vars[i]; i++)
 	{
 		var_env = _strdup(ptr->environment_vars[i]);
-		name_env = _strtok(var_env, "=");
+		name_env = my_strtok(var_env, "=");
 		if (_strcmp(name_env, name) == 0)
 		{
 			free(ptr->environment_vars[i]);
@@ -80,7 +80,7 @@ int _unsetenv(ShellData *ptr)
 	while (ptr->environment_vars[i])
 	{
 		var = _strdup(ptr->environment_vars[i]);
-		name = _strtok(var, "=");
+		name = my_strtok(var, "=");
 		if (_strcmp(name, ptr->parsed_input_args[1]) == 0)
 			k = i;
 
