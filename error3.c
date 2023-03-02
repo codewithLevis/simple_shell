@@ -24,7 +24,7 @@ char *generate_cd_err(ShellData *ptr)
     }
     len = _strlen( ptr->command_line_args[0]) + _strlen(ptr->parsed_input_args[0]);
     len += _strlen(str) + _strlen(msg) + len_id + 5;
-    err = malloc(sizeof(char) * (length + 1));
+    err = malloc(sizeof(char) * (len + 1));
     if (err == NULL)
     {
         free(str);
@@ -66,7 +66,7 @@ int search_cmd_error(char *dir, ShellData *ptr)
         {
                 if (access((*ptr).parsed_input_args[0], X_OK) == -1)
                 {
-                        handle_error(datash, 126);
+                        handle_error(ptr, 126);
                         return (1);
                 }
         }
