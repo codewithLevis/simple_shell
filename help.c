@@ -37,7 +37,7 @@ CommandName get_shell_command_name(char *arg)
 	}
 	else
 	{
-		return (-1); // Return an invalid command name
+		return (-1);
 	}
 }
 
