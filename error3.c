@@ -22,12 +22,12 @@ char *generate_cd_err(ShellData *ptr)
         msg = ": can't cd to ";
         len_id = _strlen( ptr->parsed_input_args[1]);
     }
-    len = _strlen( ptr->command_line_args[0]) + _strlen(ptr->parsed_input_args[0][0]);
+    len = _strlen( ptr->command_line_args[0]) + _strlen(ptr->parsed_input_args[0]);
     len += _strlen(str) + _strlen(msg) + len_id + 5;
-    error = malloc(sizeof(char) * (length + 1));
+    err = malloc(sizeof(char) * (length + 1));
     if (err == NULL)
     {
-        free(_str);
+        free(str);
         return (NULL);
     }
 
@@ -47,7 +47,7 @@ int search_cmd_error(char *dir, ShellData *ptr)
 {
         if (dir == NULL)
         {
-        handle_error(datash, 127);
+        handle_error(ptr, 127);
         return (1);
         }
 
