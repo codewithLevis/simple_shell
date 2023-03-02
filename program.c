@@ -90,7 +90,7 @@ void program_integration(ShellData *ptr)
 	for (flag = 1; flag; flag = !ctrl_d)
 	{
 		if (isatty(STDIN_FILENO))
-			void prompt(void);
+			prompt();
 
 		input = read_input(&ctrl_d);
 		if (ctrl_d != -1)
