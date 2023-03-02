@@ -78,13 +78,13 @@ void parse_input(char *input, SeparatorNode **head, CommandLineNode **start)
 	}
     
     /*tokenize the input by separators and add to the command list*/
-	sep_token = _strtok(input, ";|&");
+	sep_token = my_strtok(input, ";|&");
 
 	while (token)
 	{
 		sep_token = encoder(sep_token, 0);
 		add_CommandLineNode(start, token);
-		sep_token = _strtok(NULL, ";|&");
+		sep_token = my_strtok(NULL, ";|&");
 	}
 }
 
