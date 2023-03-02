@@ -213,4 +213,26 @@ void _strrev(char *str);
 char **my_reallocate(char **ptr_arr, unsigned int old_len, unsigned int new_len);
 char **tokenize(char *input, const char *delim);
 
+/**
+*enum CommandName - Represents the name of a shell command.
+*@COMMAND_SETENV: The "setenv" command.
+*@COMMAND_ENV: The "env" command.
+*@COMMAND_UNSETENV: The "unsetenv" command.
+*@COMMAND_HELP: The "help" command.
+*@COMMAND_EXIT: The "exit" command.
+*@COMMAND_CD: The "cd" command.
+*@COMMAND_ALIAS: The "alias" command.
+*Return: The name of a shell command as an enumerated value.
+*/
+typedef enum CommandName
+{
+	COMMAND_SETENV,
+	COMMAND_ENV,
+	COMMAND_UNSETENV,
+	COMMAND_HELP,
+	COMMAND_EXIT,
+	COMMAND_CD,
+	COMMAND_ALIAS
+} CommandName;
+
 #endif /*SHELL_H*/
