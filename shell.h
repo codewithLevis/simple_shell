@@ -124,7 +124,7 @@ char *_getenv(const char *value, char **env);
 void _set2env(char *key, char *value, ShellData *ptr);
 
 /*error.c*/
-int check_first_character(char *input, char *offset);
+int check_first_character(char *input, int *offset);
 void print_shell_error(ShellData *ptr_data, char *input, int idx, int t_msg);
 int duplicates(char *input, int i);
 int check_separator(char *input, int i, char offset);
@@ -143,7 +143,7 @@ int search_cmd_error(char *dir, ShellData *ptr);
 
 /*execute.c*/
 char *encoder(char *input, int encode);
-void parse_input(char *input, SeparatorNode **head, CommandLineNode **start);
+void parse_input(SeparatorNode **head, CommandLineNode **start, char *input);
 void *get_next(CommandLineNode *head, SeparatorNode *start, ShellData *data);
 int execute_commands(ShellData *ptr, char *input);
 
@@ -153,13 +153,6 @@ int is_path_segment(char *path, int *index);
 char *get_path(char *cmd, char **envp);
 int execute_cmd(char **args, char **environ_vars, ShellData *ptr);
 int execute(ShellData *ptr);
-
-/*help.c*/
-char *get_shell_command_name(char *arg);
-void print_help_setenv(void);
-void print_help_env(void);
-void print_help_unsetenv(void);
-int print_shell_help(ShellData *ptr);
 
 /*help2.c*/
 void print_help(void);
@@ -234,5 +227,13 @@ typedef enum CommandName
 	COMMAND_CD,
 	COMMAND_ALIAS
 } CommandName;
+
+/*help.c*/
+CommandName get_shell_command_name(char *arg);
+void print_help_setenv(void);
+void print_help_env(void);
+void print_help_unsetenv(void);
+int print_shell_help(ShellData *ptr);
+
 
 #endif /*SHELL_H*/
