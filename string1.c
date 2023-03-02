@@ -21,7 +21,7 @@ int _strlen(const char *s)
 *Return: len
 */
 int get_int_length(int num)
-	{
+{
 	int length = 0;
 	/*special case for 0*/
 	if (num == 0)
