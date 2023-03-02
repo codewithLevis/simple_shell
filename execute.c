@@ -97,7 +97,7 @@ void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
  *
  * Return: void
  */
-void *get_next(CommandLineNode **head, SeparatorNode **start, ShellData *ptr)
+void get_next(CommandLineNode **head, SeparatorNode **start, ShellData *ptr)
 {
         int separator_loop;
         SeparatorNode *temp = *start;
