@@ -86,7 +86,7 @@ char *get_path(char *cmd, char **envp)
 		return (NULL);
 	}
 
-	cmd_len = strlen(cmd);
+	cmd_len = _strlen(cmd);
 	path_end = path + strlen(path);
 	index = 0;
 	for (token = path; token < path_end; token += index + 1)
@@ -165,7 +165,7 @@ int execute_cmd(char **args, char **environ_vars, ShellData *ptr)
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
 	
-	(*ptr).exit_status = (status / 256)
+	(*ptr).exit_status = (status / 256);
 	return (1);
 }
 
