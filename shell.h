@@ -144,7 +144,7 @@ int search_cmd_error(char *dir, ShellData *ptr);
 /*execute.c*/
 char *encoder(char *input, int encode);
 void parse_input(SeparatorNode **head, CommandLineNode **start, char *input);
-void *get_next(CommandLineNode **head, SeparatorNode **start, ShellData *data);
+void get_next(CommandLineNode **head, SeparatorNode **start, ShellData *data);
 int execute_commands(ShellData *ptr, char *input);
 
 /*final.c*/
