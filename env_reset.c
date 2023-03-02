@@ -8,7 +8,7 @@
 */
 char *_create_env_var(char *name, char *value)
 {
-	int len = sprintf(NULL, "%s=%s", name, value) + 1;
+	int len = _strlen(name) + _strlen(value) + 2;
 	char *env_var = malloc(sizeof(char) * len);
 
 	if (env_var == NULL)
@@ -30,7 +30,7 @@ int _setenv(ShellData *ptr)
 	char *name, *value;
 	if (ptr->parsed_input_args[1] == NULL || ptr->parsed_input_args[2] == NULL)
 	{
-		handle_error(datash, -1);
+		handle_error(ptr, -1);
 		return (1);
 	}
 
@@ -51,7 +51,7 @@ int _setenv(ShellData *ptr)
 		free(var_env);
 	}
 
-	ptr->environment_vars = _realloc_double_ptr(datash->_environ, i, sizeof(char *) * (i + 2));
+	ptr->environment_vars = _realloc_double_ptr(ptr->environment_vars, i, sizeof(char *) * (i + 2));
 	ptr->environment_vars[i] = _create_env_var(name, value);
 	ptr->environment_vars[i + 1] = NULL;
 
@@ -69,7 +69,7 @@ int _unsetenv(ShellData *ptr)
 	char *var, *name;
 	int i, j, k;
 
-	if (ptr->args[1] == NULL)
+	if ptr->parsed_input_args[1] == NULL)
 	{
 		handle_error(ptr, -1);
 		return (1);
@@ -179,7 +179,6 @@ void _set2env(char *key, char *value, ShellData *ptr)
 	}
 
 	(*ptr).environment_vars = my_reallocate((*ptr).environment_vars, len_env, sizeof(char *) * (len_env + 2));
-	(*ptr).environment_vars[environ_length] = _create_env_var(key, value);
-	(*ptr).environment_vars[environ_length + 1] = NULL;
+	(*ptr).environment_vars[len_env] = _create_env_var(key, value);
+	(*ptr).environment_vars[len_env + 1] = NULL;
 }
-
