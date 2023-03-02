@@ -11,6 +11,8 @@
 */
 int (*find_builtin_func(char *cmd))(ShellData *)
 {
+	int i;
+
 	Builtin builtins[] = {
 		{ "env", _env },
 		{ "exit", exit_handler },
@@ -21,7 +23,7 @@ int (*find_builtin_func(char *cmd))(ShellData *)
 		{ NULL, NULL }
 	};
 
-	for (int i = 0; builtins[i].name != NULL; i++)
+	for (i = 0; builtins[i].name != NULL; i++)
 	{
 		if (_strcmp(builtins[i].name, cmd) == 0)
 			return (builtins[i].func);
@@ -46,7 +48,7 @@ int _env(ShellData *ptr)
 		while ((*ptr).environment_vars[i][j])
 			j++;
 
-		dprintf(STDOUT_FILENO, "%s\n", (*ptr).environment_vars[i][j]);
+		dprintf(STDOUT_FILENO, "%s\n", (*ptr).environment_vars[i]);
 		i++;
 	}
 
