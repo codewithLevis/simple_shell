@@ -105,8 +105,8 @@ void program_integration(ShellData *ptr)
 				continue;
 			}
 			input = expand_variables(input, ptr);
-			flag = split_commands(ptr, input);
-			datash->counter += 1;
+			flag = execute_commands(ptr, input);
+			(*ptr).command_counter += 1;
 			free(input);
 		}
 		else
