@@ -57,7 +57,7 @@ char *encoder(char *input, int encode)
 *@input: user modified input
 *Return: void
 */
-void parse_input(char *input, SeparatorNode **head, CommandLineNode **start)
+void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
 {
 	int i = 0;
 	char delim[4] = ";|&";
@@ -152,16 +152,17 @@ int execute_commands(ShellData *ptr, char *input)
 	while (temp != NULL)
 	{
 	(*ptr).user_input = temp->command;
-	(*ptr).parsed_input_args = tokenize((*ptr).user_input);
+	(*ptr).parsed_input_args = tokenize((*ptr).user_input, TOK_DELIM);
 
 	flag = execute(ptr);
 	free((*ptr).parsed_input_args);
 
 	if (flag == 0)
 		break;
-	get_next(&curr, &temp, ptr);
+	get_next(&temp, &curr, ptr);
 	if (temp != NULL)
 		temp = temp->next;
+	}
 
 	free_SeparatorNode_list(&head);
 	free_CommandLineNode_list(&start);
