@@ -11,9 +11,9 @@
 */
 int (*find_builtin_func(char *cmd))(ShellData *)
 {
-	builtin_t builtins[] = {
+	Builtin builtins[] = {
 		{ "env", _env },
-		{ "exit", exit_shell },
+		{ "exit", exit_handler },
 		{ "setenv", _setenv },
 		{ "unsetenv", _unsetenv },
 		{ "cd", change_directory },
@@ -24,7 +24,7 @@ int (*find_builtin_func(char *cmd))(ShellData *)
 	for (int i = 0; builtins[i].name != NULL; i++)
 	{
 		if (_strcmp(builtins[i].name, cmd) == 0)
-			return (builtins[i].f);
+			return (builtins[i].func);
 	}
 
 	return (NULL);
@@ -43,10 +43,10 @@ int _env(ShellData *ptr)
 	while ((*ptr).environment_vars[i])
 	{
 		j = 0;
-		while ((*ptr).environment_vars[i][i][j])
+		while ((*ptr).environment_vars[i][j])
 			j++;
 
-		dprintf(STDOUT_FILENO, "%s\n", (*ptr).environment_vars[i][i]);
+		dprintf(STDOUT_FILENO, "%s\n", (*ptr).environment_vars[i][j]);
 		i++;
 	}
 
@@ -66,7 +66,7 @@ int exit_handler(ShellData *ptr)
 	unsigned int exit_status;
 	int is_digit, str_len, is_big_number;
 
-	if (data->args[1] != NULL)
+	if ((*ptr).parsed_input_args[1] != NULL)
 	{
 		exit_status = _atoi((*ptr).parsed_input_args[1]);
 		is_digit = _isdigit((*ptr).parsed_input_args[1]);
