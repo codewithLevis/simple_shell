@@ -126,14 +126,16 @@ char *exit_shell_err(ShellData *ptr)
 	char *str;
 
 	str = _itoa(prt->command_counter);
-	len = sprintf(NULL, "%s: %s: %s: Illegal number: %s\n",  pt->command_line_args[0], ver_str, data->parsed_input_args[0], data->parsed_input_args[1]) + 1;
+	len = sprintf(NULL, "%s: %s: %s: Illegal number: %s\n",  ptr->command_line_args[0], 
+		      ver_str, ptr->parsed_input_args[0], ptr->parsed_input_args[1]) + 1;
 	err = malloc(sizeof(char) * len);
 	if (err == NULL)
 	{
 		free(str);
 		return (NULL);
 	}
-	sprintf(err, "%s: %s: %s: Illegal number: %s\n", ptr-command_line_args[0], vstr, ptr->parsed_input_args[0], ptr->parsed_input_args[1]);
+	sprintf(err, "%s: %s: %s: Illegal number: %s\n", ptr-command_line_args[0], 
+		vstr, ptr->parsed_input_args[0], ptr->parsed_input_args[1]);
 	free(str);
 	return (err);
 }
