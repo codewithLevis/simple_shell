@@ -20,8 +20,8 @@ int handle_error(ShellData *ptr, int error_no)
 	{
 		if (_strcmp("exit", ptr->parsed_input_args[0]) == 0)
 			error = exit_shell_err(ptr);
-		else if (_strcmp("cd", prt->parsed_input_args[0]) == 0)
-			error = error_get_cd(ptr);
+		else if (_strcmp("cd", ptr->parsed_input_args[0]) == 0)
+			error = generate_cd_err(ptr);
 	}
 	if (error)
 	{
@@ -39,16 +39,16 @@ int handle_error(ShellData *ptr, int error_no)
 */
 char *env_err(ShellData *ptr)
 {
-	int len
+	int len;
 	char *err;
 	char *str, *msg;
 
 	str = _itoa(ptr->command_counter);
 	msg = ": Unable to add/remove from environment\n";
-	len = sprintf(NULL, "%s: %s: %s%s", ptr->command_line_args[0], str, ptr->parsed_input_args[0], msg);
-	err = malloc(sizeof(char) * (length + 1));
+	len = _strlen(ptr->command_line_args[0]) + _strlen(str) + _strlen(ptr->parsed_input_args[0]) + _strlen(msg) + 2;
+	err = malloc(sizeof(char) * (len + 1));
 
-	if (error == NULL)
+	if (err == NULL)
 	{
 		free(err);
 		free(str);
@@ -100,14 +100,14 @@ char *not_found_err(ShellData *ptr)
 	char *str;
 
 	str = _itoa(ptr->command_counter);
-	len =  _strlen(ptr->command_line_args[0]) + _strlen(counter_str)+ _strlen(ptr->command_line_args[0]) + 1;
-	err = malloc(sizeof(char) * (len + 12);
+	len =  _strlen(ptr->command_line_args[0]) + _strlen(str)+ _strlen(ptr->command_line_args[0]) + 1;
+	err = malloc(sizeof(char) * (len + 12));
 	if (err== NULL)
 	{
 		free(str);
 		return NULL;
 	}
-	sprintf(err, "%s: %s: %s: not found\n",ptr->command_line_args[0], counter_str, ptr->command_line_args[0]);
+	sprintf(err, "%s: %s: %s: not found\n",ptr->command_line_args[0], str, ptr->command_line_args[0]);
 	free(str);
 	return (err);
 }
@@ -134,8 +134,8 @@ char *exit_shell_err(ShellData *ptr)
 		free(str);
 		return (NULL);
 	}
-	sprintf(err, "%s: %s: %s: Illegal number: %s\n", ptr-command_line_args[0], 
-		vstr, ptr->parsed_input_args[0], ptr->parsed_input_args[1]);
+	sprintf(err, "%s: %s: %s: Illegal number: %s\n", ptr->command_line_args[0], 
+		str, ptr->parsed_input_args[0], ptr->parsed_input_args[1]);
 	free(str);
 	return (err);
 }
