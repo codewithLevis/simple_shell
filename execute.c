@@ -61,7 +61,7 @@ void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
 {
 	int i = 0;
 	char delim[4] = ";|&";
-	char sep_token; /*token based on separators*/
+	char *sep_token; /*token based on separators*/
 	input = encoder(input, 1);
 
 	while (input[i])
@@ -78,13 +78,13 @@ void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
 	}
     
     /*tokenize the input by separators and add to the command list*/
-	sep_token = my_strtok(input, ";|&");
+	sep_token = my_strtok(input, delim);
 
-	while (token)
+	while (sep_token)
 	{
 		sep_token = encoder(sep_token, 0);
 		add_CommandLineNode(start, token);
-		sep_token = my_strtok(NULL, ";|&");
+		sep_token = my_strtok(NULL, delim);
 	}
 }
 
@@ -97,27 +97,27 @@ void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
  *
  * Return: void
  */
-void *get_next(CommandLineNode *head, SeparatorNode *start, ShellData *data)
+void *get_next(CommandLineNode **head, SeparatorNode **start, ShellData *ptr)
 {
         int separator_loop;
-        SeparatorNode *temp = start;
-        CommandLineNode *curr = head;
+        SeparatorNode *temp = *start;
+        CommandLineNode *curr = *head;
 
         separator_loop = 1;
         while (temp != NULL && separator_loop)
         {
                 if ((*ptr).exit_status == 0)
                 {
-                        if (temp->separator == '&' || temp->separator == ';')
+                        if (temp->symbol == '&' || temp->symbol == ';')
                                 separator_loop = 0;
-                        if (temp->separator == '|')
+                        if (temp->symbol == '|')
                                 curr = curr->next, temp = temp->next;
                 }
                 else
                 {
-                        if (temp->separator == '|' || temp->separator == ';')
+                        if (temp->symbol == '|' || temp->symbol == ';')
                                 separator_loop = 0;
-                        if (temp->separator == '&')
+                        if (temp->symbol == '&')
                                 curr = curr->next, temp = temp->next;
                 }
                 if (temp != NULL && !separator_loop)
@@ -151,17 +151,17 @@ int execute_commands(ShellData *ptr, char *input)
 
 	while (temp != NULL)
 	{
-	(*ptr).user_input = temp->command;
-	(*ptr).parsed_input_args = tokenize((*ptr).user_input, TOK_DELIM);
+		(*ptr).user_input = temp->command;
+		(*ptr).parsed_input_args = tokenize((*ptr).user_input, TOK_DELIM);
 
-	flag = execute(ptr);
-	free((*ptr).parsed_input_args);
+		flag = execute(ptr);
+		free((*ptr).parsed_input_args);
 
-	if (flag == 0)
-		break;
-	get_next(&temp, &curr, ptr);
-	if (temp != NULL)
-		temp = temp->next;
+		if (flag == 0)
+			break;
+		get_next(&temp, &curr, ptr);
+		if (temp != NULL)
+			temp = temp->next;
 	}
 
 	free_SeparatorNode_list(&head);
