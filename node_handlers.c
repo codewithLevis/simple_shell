@@ -97,7 +97,7 @@ CommandLineNode *add_CommandLineNode(CommandLineNode **start, char *command)
 */
 SeparatorNode *add_SeparatorNode(SeparatorNode **head, char symbol)
 {
-	SeparatorNode current_node, *new_node = malloc(sizeof(SeparatorNode));
+	SeparatorNode *current_node, *new_node = malloc(sizeof(SeparatorNode));
 
 	if (new_node == NULL)
 		return (NULL);
