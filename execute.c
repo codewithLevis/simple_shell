@@ -83,7 +83,7 @@ void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
 	while (sep_token)
 	{
 		sep_token = encoder(sep_token, 0);
-		add_CommandLineNode(start, token);
+		add_CommandLineNode(start, sep_token);
 		sep_token = my_strtok(NULL, delim);
 	}
 }
