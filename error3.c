@@ -36,3 +36,40 @@ char *generate_cd_err(ShellData *ptr)
     free(str);
     return (err);
 }
+
+/**
+ * search_cmd_error - Check if the command is valid
+ * @dir: directory of the command
+ * @ptr: the shell data
+ * Return: 1 if there is an error, otherwise 0
+ */
+int search_cmd_error(char *dir, ShellData *ptr)
+{
+        if (dir == NULL)
+        {
+        handle_error(datash, 127);
+        return (1);
+        }
+
+        if (_strcmp((*ptr).parsed_input_args[0], dir) != 0)
+        {
+                if (access(dir, X_OK) == -1)
+                {
+                        handle_error(ptr, 126);
+                        free(dir);
+                        return (1);
+                }
+                free(dir);
+        }
+        
+        else
+        {
+                if (access((*ptr).parsed_input_args[0], X_OK) == -1)
+                {
+                        handle_error(datash, 126);
+                        return (1);
+                }
+        }
+
+        return (0);
+}
