@@ -188,8 +188,8 @@ int execute(ShellData *ptr)
 	/*Check if command is a builtin*/
 	builtin = find_builtin_func((*ptr).parsed_input_args[0]);
 
-	if (find_builtin_func != NULL)
-		return (find_builtin_func(ptr));
+	if (builtin != NULL)
+		return (builtin(ptr));
 
 	/*Execute external command*/
 	return (execute_cmd((*ptr).parsed_input_args, (*ptr).environment_vars, ptr));
