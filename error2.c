@@ -70,10 +70,10 @@ char *path_126_err(ShellData *ptr)
 {
 	int length;
 	char *counter_str;
-	char *err, *holder;
+	char *err;
 
 	counter_str = _itoa(ptr->command_counter);
-	length = strlen(ptr->command_line_args[0]) + strlen(counter_str) + 27;
+	length = _strlen(ptr->command_line_args[0]) + _strlen(counter_str) + 27;
 	err = malloc(sizeof(char) * (length + 1));
 	if (err == NULL)
 	{
