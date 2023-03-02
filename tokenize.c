@@ -1,8 +1,5 @@
 #include "shell.h"
 
-#define TOK_BUFSIZE 64
-#define TOK_DELIM " \t\r\n\a"
-
 /**
 *my_reallocate - allocate memory for array of strings
 *@ptr_arr: pointer to an array of strings
