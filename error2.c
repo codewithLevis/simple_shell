@@ -6,7 +6,7 @@
  * @error_no: integer value of the error
  * Return: the integer value of the error
  */
-int handle_error(ShellData *prt, int error_no)
+int handle_error(ShellData *ptr, int error_no)
 {
 	char *error;
 
@@ -37,7 +37,7 @@ int handle_error(ShellData *prt, int error_no)
 *@ptr: pointer to shell struct
 *Return: err info
 */
-char *env_err(data_shell *datash)
+char *env_err(ShellData *ptr)
 {
 	int len
 	char *err;
@@ -70,10 +70,10 @@ char *path_126_err(ShellData *ptr)
 {
 	int length;
 	char *counter_str;
-	char *err;
+	char *err, *holder;
 
-	counter_str = _itoa(datash->counter);
-	length = sprintf(NULL, "%s: %s: %s: Permission denied\n",
+	counter_str = _itoa(ptr->command_counter);
+	length = sprintf(holder, "%s: %s: %s: Permission denied\n",
 		     ptr->command_line_args[0], counter_str, ptr->command_line_args[0]);
 	err = malloc(sizeof(char) * (length + 1));
 	if (err == NULL)
@@ -82,7 +82,7 @@ char *path_126_err(ShellData *ptr)
 	free(counter_str);
 	return NULL;
 	}
-	sprintf(error_message, "%s: %s: %s: Permission denied\n",
+	sprintf(err, "%s: %s: %s: Permission denied\n",
 	    ptr->command_line_args[0], counter_str, ptr->command_line_args[0]);
 	free(counter_str);
 	return (err);
@@ -99,10 +99,10 @@ char *not_found_err(ShellData *ptr)
 	char *err;
 	char *str;
 
-	str = _itoa(data->counter);
-	len = sprintf(NULL, "%s: %s: %s: not found\n", ptr->command_line_args[0], counter_str, ptr->command_line_args[0]) + 1;
-	err = malloc(sizeof(char) * len);
-	if (error == NULL)
+	str = _itoa(ptr->command_counter);
+	len =  _strlen(ptr->command_line_args[0]) + _strlen(counter_str)+ _strlen(ptr->command_line_args[0]) + 1;
+	err = malloc(sizeof(char) * (len + 12);
+	if (err== NULL)
 	{
 		free(str);
 		return NULL;
@@ -125,10 +125,10 @@ char *exit_shell_err(ShellData *ptr)
 	char *err;
 	char *str;
 
-	str = _itoa(prt->command_counter);
-	len = sprintf(NULL, "%s: %s: %s: Illegal number: %s\n",  ptr->command_line_args[0], 
-		      ver_str, ptr->parsed_input_args[0], ptr->parsed_input_args[1]) + 1;
-	err = malloc(sizeof(char) * len);
+	str = _itoa(ptr->command_counter);
+	len = _strlen(ptr->command_line_args[0]) + _strlen(str) + _strlen(ptr->parsed_input_args[0]);
+	len += _strlen(ptr->parsed_input_args[1]) + 1;
+	err = malloc(sizeof(char) * (len + 18));
 	if (err == NULL)
 	{
 		free(str);
