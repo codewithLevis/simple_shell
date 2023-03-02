@@ -37,10 +37,10 @@ void cd_parent_dir(ShellData *ptr)
 	_strrev(pwd_copy);
 
 	/* Get the parent directory. */
-	pwd_copy = _strtok(pwd_copy, "/");
+	pwd_copy = my_strtok(pwd_copy, "/");
 	if (pwd_copy != NULL)
 	{
-		pwd_copy = _strtok(NULL, "\0");
+		pwd_copy = my_strtok(NULL, "\0");
 
 		if (pwd_copy != NULL)
 			_strrev(pwd_copy);
@@ -76,7 +76,7 @@ void cd_change_dir(ShellData *ptr)
 	getcwd(current_dir, sizeof(current_dir));
 
 	/* Get the specified directory from the argument list.*/
-	specified_dir = datash->args[1];
+	specified_dir = (*ptr).parsed_input_args[1];
 
 	/*Try to change the current working directory to the specified directory.*/
 	if (chdir(specified_dir) == -1)
@@ -87,7 +87,7 @@ void cd_change_dir(ShellData *ptr)
 
 	/* Update the OLDPWD environment variable.*/
 	cp_current_dir = _strdup(current_dir);
-	set_env("OLDPWD", cp_current_dir, datash);
+	_set2env("OLDPWD", cp_current_dir, datash);
 	free(cp_current_dir);
 
 	/* Update the PWD environment variable.*/
@@ -184,7 +184,7 @@ void cd_home_dir(ShellData *ptr)
  * @ptr: pointer to shell struct
  * Return: 1
  */
-int change_directory(ShellData *datash)
+int change_directory(ShellData *ptr)
 {
 	char *argument;
 
@@ -216,7 +216,7 @@ int change_directory(ShellData *datash)
 			continue;
 		}
 
-		cd_change_dir(ptr, argument);
+		cd_change_dir(ptr);
 	}
 
 	return (1);
