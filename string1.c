@@ -88,15 +88,18 @@ char *_itoa(int num)
 
 char *_memcpy(char *dest, char *src, unsigned int n)
 {
-	int i = 0;
+	unsigned int i = 0;
 
 	while (i < n)
-		dest[i++] = src[i];
+	{
+		dest[i] = src[i];
+		i++;
+	}
 
 	dest[i] = '\0';
 	return (dest);
 }
-char *
+
 /**
 *_strdup - returns a pointer to a newly
 *allocated space in memory
