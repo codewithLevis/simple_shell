@@ -73,8 +73,7 @@ char *path_126_err(ShellData *ptr)
 	char *err, *holder;
 
 	counter_str = _itoa(ptr->command_counter);
-	length = sprintf(holder, "%s: %s: %s: Permission denied\n",
-		     ptr->command_line_args[0], counter_str, ptr->command_line_args[0]);
+	length = strlen(ptr->command_line_args[0]) + strlen(counter_str) + 27;
 	err = malloc(sizeof(char) * (length + 1));
 	if (err == NULL)
 	{
