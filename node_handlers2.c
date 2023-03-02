@@ -40,7 +40,7 @@ void free_CommandLineNode_list(CommandLineNode **start)
 			temp = curr->next;
 			free(curr);
 		}
-		*head = NULL;
+		*start = NULL;
 	}
 }
 
