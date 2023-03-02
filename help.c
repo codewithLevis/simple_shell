@@ -3,41 +3,41 @@
 /**
 *get_shell_command_name - verifies string argument
 *@arg: string argument
-*Return: the corresponding shell command name
+*Return: the corresponding shell command value
 */
-char *get_shell_command_name(char *arg)
+CommandName get_shell_command_name(char *arg)
 {
 	if (_strcmp(arg, "setenv") == 0)
 	{
-		return ("setenv");
+		return (COMMAND_SETENV);
 	}
 	else if (_strcmp(arg, "env") == 0)
 	{
-		return ("env");
+		return (COMMAND_ENV);
 	}
 	else if (_strcmp(arg, "unsetenv") == 0)
 	{
-		return ("unsetenv");
+		return (COMMAND_UNSETENV);
 	}
 	else if (_strcmp(arg, "help") == 0)
 	{
-		return ("help");
+		return (COMMAND_HELP);
 	}
 	else if (_strcmp(arg, "exit") == 0)
 	{
-		return ("exit");
+		return (COMMAND_EXIT);
 	}
 	else if (_strcmp(arg, "cd") == 0)
 	{
-		return ("cd");
+		return (COMMAND_CD);
 	}
 	else if (_strcmp(arg, "alias") == 0)
 	{
-		return ("alias");
+		return (COMMAND_ALIAS);
 	}
 	else
 	{
-		return (NULL);
+		return (-1); // Return an invalid command name
 	}
 }
 
@@ -89,27 +89,27 @@ int print_shell_help(ShellData *ptr)
 
 	else
 	{
-		switch (arg != NULL ? get_shell_command_name(arg) : NULL)
+		switch (get_shell_command_name(arg))
 		{
-			case "setenv":
+			case COMMAND_SETENV:
 				print_help_setenv();
 				break;
-			case "env":
+			case COMMAND_ENV:
 				print_help_setenv();
 				break;
-			case "unsetenv":
+			 case COMMAND_UNSETENV:
 				print_help_unsetenv();
 				break;
-			case "help":
+			 case COMMAND_HELP:
 				print_help();
 				break;
-			case "exit":
+			case COMMAND_EXIT:
 				print_help_exit();
 				break;
-			case "cd":
+			case COMMAND_CD:
 				print_help_cd();
 				break;
-			case "alias":
+			case COMMAND_ALIAS:
 				print_help_alias();
 				break;
 			default:
