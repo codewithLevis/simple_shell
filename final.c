@@ -87,7 +87,7 @@ char *get_path(char *cmd, char **envp)
 	}
 
 	cmd_len = _strlen(cmd);
-	path_end = path + strlen(path);
+	path_end = path + _strlen(path);
 	index = 0;
 	for (token = path; token < path_end; token += index + 1)
 	{
