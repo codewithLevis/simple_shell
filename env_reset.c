@@ -34,8 +34,8 @@ int _setenv(ShellData *ptr)
 		return (1);
 	}
 
-	*name = ptr->parsed_input_args[1];
-	*value = ptr->parsed_input_args[2];
+	name = ptr->parsed_input_args[1];
+	value = ptr->parsed_input_args[2];
 
 	for (i = 0; ptr->environment_vars[i]; i++)
 	{
@@ -69,7 +69,7 @@ int _unsetenv(ShellData *ptr)
 	char *var, *name;
 	int i, j, k;
 
-	if ptr->parsed_input_args[1] == NULL)
+	if (ptr->parsed_input_args[1] == NULL)
 	{
 		handle_error(ptr, -1);
 		return (1);
