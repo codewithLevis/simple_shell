@@ -51,13 +51,13 @@ void assign(ShellData *shell_data, char **command_line_args);
 typedef struct Builtin
 {
 	char *name;
-	int (*func)(data_shell *datash);
+	int (*func)(ShellData *ptr);
 } Builtin;
 
 /**
 *struct VarNode_t - represents a node in a singly linked list that stores variables
 *@len_var: length of the variable
-*@value: value of the variable
+*@val: value of the variable
 *@len_val: length of the value
 *@next: pointer to the next node in the list
 *Description: This struct defines a node in a singly linked list used to store variables.
@@ -67,7 +67,7 @@ typedef struct Builtin
 typedef struct VarNode_t
 {
 	int len_var;
-	char *value;
+	char *val;
 	int len_val;
 	struct VarNode_t *next;
 } VarNode_t;
@@ -84,7 +84,7 @@ typedef struct SeparatorNode
 {
 	char symbol;
 	struct SeparatorNode *next;
-} VarNode_t;
+} SeparatorNode;
 
 /**
 *struct CommandLineNode - singly linked list for command lines
@@ -132,7 +132,7 @@ int find_syntax_error(ShellData *ptr_data, char *input);
 
 /*error2.c*/
 int handle_error(ShellData *prt, int error_no);
-char *env_err(data_shell *datash);
+char *env_err(ShellData *ptr);
 char *path_126_err(ShellData *ptr);
 char *not_found_err(ShellData *ptr);
 char *exit_shell_err(ShellData *ptr);
