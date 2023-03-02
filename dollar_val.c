@@ -19,7 +19,7 @@ void search_env_var(VarNode_t **start, char *in, ShellData *ptr)
 	for (i = 0; env_vars[i]; i++)
 	{
 		j = 0;
-		while (env_vars[i][j] && input[j] && env_vars[i][j] == input[j])
+		while (env_vars[i][j] && in[j] && env_vars[i][j] == in[j])
 			j++;
 
 		if (env_vars[i][j] == '=')
@@ -31,7 +31,7 @@ void search_env_var(VarNode_t **start, char *in, ShellData *ptr)
 	}
 
 	j = 0;
-	while ( in[j] && in[j] != ' ' && input[j] != '\t' && input[j] != ';' && input[j] != '\n')
+	while ( in[j] && in[j] != ' ' && in[j] != '\t' && in[j] != ';' && in[j] != '\n')
 		j++;
 	add_node(start, j, NULL, 0);
 }
@@ -50,11 +50,11 @@ void search_env_var(VarNode_t **start, char *in, ShellData *ptr)
 */
 int parse_vars(VarNode_t **head, char *input, char *status, ShellData *ptr)
 {
-	int index = 0, status_len = 0, pid_len = 0;
+	int i, index = 0, status_len = 0, pid_len = 0;
 	status_len = _strlen(status);
-	pid_len = _strlen(ptr->pid);
+	pid_len = _strlen(ptr->process_id);
 	
-	for (int i = 0; input[i]; i++)
+	for (i = 0; input[i]; i++)
 	{
 		switch (input[i])
 		{
