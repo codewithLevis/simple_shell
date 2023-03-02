@@ -1,6 +1,14 @@
 #include "shell.h"
 
-
+/**
+*find_builtin_func - search for a built-in shell command
+*by comparing the command string passed to it as an argument
+*with an array of structures containing the names of the built-in
+*commands and their corresponding function pointers
+*@cmd: command
+*Return: If the command string is found, the corresponding function pointer is
+*returned. If the command is not a built-in command, NULL is returned
+*/
 int (*find_builtin_func(char *cmd))(ShellData *)
 {
 	builtin_t builtins[] = {
@@ -9,7 +17,7 @@ int (*find_builtin_func(char *cmd))(ShellData *)
 		{ "setenv", _setenv },
 		{ "unsetenv", _unsetenv },
 		{ "cd", change_directory },
-		{ "help", get_help },
+		{ "help", print_shell_help },
 		{ NULL, NULL }
 	};
 
