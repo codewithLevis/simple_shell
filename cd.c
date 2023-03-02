@@ -87,12 +87,12 @@ void cd_change_dir(ShellData *ptr)
 
 	/* Update the OLDPWD environment variable.*/
 	cp_current_dir = _strdup(current_dir);
-	_set2env("OLDPWD", cp_current_dir, datash);
+	_set2env("OLDPWD", cp_current_dir, ptr);
 	free(cp_current_dir);
 
 	/* Update the PWD environment variable.*/
 	cp_specified_dir = _strdup(specified_dir);
-	_set2env("PWD", cp_specified_dir, datash);
+	_set2env("PWD", cp_specified_dir, ptr);
 	free(cp_specified_dir);
 
 	(*ptr).exit_status= 0;
