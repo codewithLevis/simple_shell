@@ -81,7 +81,7 @@ void cd_change_dir(ShellData *ptr)
 	/*Try to change the current working directory to the specified directory.*/
 	if (chdir(specified_dir) == -1)
 	{
-		handle_error(datash, 2);
+		handle_error(ptr, 2);
 		return;
 	}
 
@@ -187,6 +187,7 @@ void cd_home_dir(ShellData *ptr)
 int change_directory(ShellData *ptr)
 {
 	char *argument;
+	int i;
 
 	if ((*ptr).parsed_input_args[1] == NULL)
 	{
@@ -194,7 +195,7 @@ int change_directory(ShellData *ptr)
 		return (1);
 	}
 
-	for (int i = 1; (*ptr).parsed_input_args[i] != NULL; i++)
+	for (i = 1; (*ptr).parsed_input_args[i] != NULL; i++)
 	{
 		argument = (*ptr).parsed_input_args[i];
 
