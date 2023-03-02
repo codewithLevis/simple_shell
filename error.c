@@ -7,7 +7,7 @@
 *index of the first non-whitespace character in the input string
 *Return: -1 (success) or 0 (not true)
 */
-int check_first_character(char *input, char *offset)
+int check_first_character(char *input, int *offset)
 {
 	char *p = input;
 
@@ -28,6 +28,7 @@ int check_first_character(char *input, char *offset)
 		*offset = p - input;
 		return (0);
 	}
+	return (0);
 }
 
 /**
@@ -47,7 +48,7 @@ void print_shell_error(ShellData *ptr_data, char *input, int idx, int t_msg)
 	char *m, *m2, *m3, *err, *counter;
 	int length;
 
-	if (input[position] == ';')
+	if (input[idx] == ';')
 	{
 		if (t_msg == 0)
 			m = (input[idx + 1] == ';' ? ";;" : ";");
@@ -121,8 +122,10 @@ int check_separator(char *input, int i, char offset)
 		}
 		
 		if (*input == ';')
+		{
 			if (offset == '|' || offset == '&' || offset == ';')
 				return (i);
+		}
 
 		else if (*input == '|')
 		{
