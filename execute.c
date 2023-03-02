@@ -89,6 +89,48 @@ void parse_input(char *input, SeparatorNode **head, CommandLineNode **start)
 }
 
 /**
+ * get_next - Traverses the command linked list and returns
+ *                     the next node to be executed
+ * @head: The start of the command linked list
+ * @start: The start of the separator linked list
+ * @ptr: The shell data struct
+ *
+ * Return: void
+ */
+void *get_next(CommandLineNode *head, SeparatorNode *start, ShellData *data)
+{
+        int separator_loop;
+        SeparatorNode *temp = start;
+        CommandLineNode *curr = head;
+
+        separator_loop = 1;
+        while (temp != NULL && separator_loop)
+        {
+                if ((*ptr).exit_status == 0)
+                {
+                        if (temp->separator == '&' || temp->separator == ';')
+                                separator_loop = 0;
+                        if (temp->separator == '|')
+                                curr = curr->next, temp = temp->next;
+                }
+                else
+                {
+                        if (temp->separator == '|' || temp->separator == ';')
+                                separator_loop = 0;
+                        if (temp->separator == '&')
+                                curr = curr->next, temp = temp->next;
+                }
+                if (temp != NULL && !separator_loop)
+                        temp = temp->next;
+        }
+
+	*start = temp;
+	*head = curr;
+        
+}
+
+
+/**
 *execute_commands - split a command line input into separate
 *commands separated by specific separator characters (;, |, or &)
 *@ptr: pointer to struct shell
@@ -112,17 +154,18 @@ int execute_commands(ShellData *ptr, char *input)
 	(*ptr).user_input = temp->command;
 	(*ptr).parsed_input_args = tokenize((*ptr).user_input);
 
-	flag = exec_line(ptr);
+	flag = execute(ptr);
 	free((*ptr).parsed_input_args);
+
 	if (flag == 0)
-	break;
-	go_next(&curr_s, &temp_l, ptr);
-	if (temp_l != NULL)
-	temp_l = temp_l->next;
-	}
+		break;
+	get_next(&curr, &temp, ptr);
+	if (temp != NULL)
+		temp = temp->next;
+
 	free_SeparatorNode_list(&head);
 	free_CommandLineNode_list(&start);
 	if (flag == 0)
-	return;
-	return;
+		return (0);
+	return (1);
 }
