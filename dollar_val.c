@@ -171,11 +171,11 @@ char *expand_variables(char *input, ShellData *ptr)
 	}
 	pos2 += pos1;
 	new = malloc(sizeof(char) * (pos2 + 1));
+	printf("Up to here I am ok\n");
 
 	new = expansion(&start, input, new, pos2);
 	free(input);
 	free(status);
 	free_VarNode_t(&start);
-	printf("Up to here I am ok\n");
 	return (new);
 }
