@@ -155,6 +155,8 @@ char *expand_variables(char *input, ShellData *ptr)
 	status = _itoa((*ptr).exit_status);
 	start = NULL;
 	pos1 = parse_vars(&start, input, status, ptr);
+	
+	printf("Up to here I am ok\n");
 
 	if (start == NULL)
 	{
@@ -171,7 +173,6 @@ char *expand_variables(char *input, ShellData *ptr)
 	}
 	pos2 += pos1;
 	new = malloc(sizeof(char) * (pos2 + 1));
-	printf("Up to here I am ok\n");
 
 	new = expansion(&start, input, new, pos2);
 	free(input);
