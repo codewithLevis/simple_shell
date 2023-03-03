@@ -148,7 +148,10 @@ int execute_commands(ShellData *ptr, char *input)
 	parse_input(&head, &start, input);
 	curr = head;
 	temp = start;
-	printf("Outside is cool");
+	printf("Outside is cool\n");
+	
+	if (temp == NULL)
+		printf("I am null\n");
 	while (temp != NULL)
 	{
 		printf("I was not a joke to reach here");
