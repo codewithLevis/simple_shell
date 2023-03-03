@@ -85,7 +85,6 @@ int parse_vars(VarNode_t **head, char *input, char *status, ShellData *ptr)
 		}
 		index++;
 	}
-	printf("Up to here I am ok");
 	return (index);
 }
 
@@ -177,5 +176,6 @@ char *expand_variables(char *input, ShellData *ptr)
 	free(input);
 	free(status);
 	free_VarNode_t(&start);
+	printf("Up to here I am ok\n");
 	return (new);
 }
