@@ -80,7 +80,7 @@ void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
     /*tokenize the input by separators and add to the command list*/
 	sep_token = my_strtok(input, delim);
 
-	while (sep_token)
+	while (sep_token != NULL)
 	{
 		sep_token = encoder(sep_token, 1);
 		add_CommandLineNode(start, sep_token);
