@@ -44,45 +44,44 @@ char *_strchr(char *s, char c)
 *@delim: pointer to array of characters
 *Return: token
 */
-
 char *my_strtok(char *str, const char *delim)
 {
-	static char *next_token = NULL;
+	static char *last_token = NULL;
 	char *token = NULL;
-	int i, j, len = _strlen(str);
-    
+
 	if (str != NULL)
-		next_token = str;
+		last_token = str;
 
-  
-	for (i = 0; i < len; i++)
+	else
 	{
-		for (j = 0; delim[j] != '\0'; j++)
-		{
-			if (next_token[i] == delim[j])
-			{
-				token = _strndup(next_token, i);
-				if (token == NULL)
-				{
-					return (NULL);
-				}
+		if (last_token == NULL)
+			return (NULL);
 
-				next_token += i + 1;
-
-				return (token);
-			}
-		}
+		str = last_token;
 	}
 
-	if (next_token != NULL && *next_token != '\0')
+	/* Skip over any leading delimiters */
+	str += strspn(str, delim);
+	if (*str == '\0')
 	{
-		token = _strdup(next_token);
-		next_token = NULL;
+		last_token = NULL;
+		return (NULL);
 	}
 
-	return (token);
+	/* Find the end of the token */
+	token = str;
+	str = strpbrk(token, delim);
+	if (str == NULL)
+		last_token = NULL;
+
+	else
+	{
+		*str = '\0';
+		last_token = str + 1;
+	}
+
+	return (strdup(token));
 }
-
 /**
 *_strndup - creates a new memory location and duplicated a string of specified size
 *@str: pointer ro string to be duplicated
