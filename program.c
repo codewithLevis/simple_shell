@@ -61,50 +61,29 @@ char *read_input(int *ctrl_d)
 *check if the sign is part of word if so it leaves
 */
 
-char *remove_comment(char *input) 
+char *remove_comment(char *input)
 {
-	int i, j;
-	char *new_str = NULL;
-
-	/* Find the index of the first '#' character */
-	for (i = 0; input[i]; i++)
-	{
-		if (input[i] == '#')
-			break;
-	}
-
-	/* If no '#' character is found, return the original string */
-	if (!input[i])
-		return (input);
-
-	/* Find the index of the last non-whitespace character before the '#' character */
-	for (j = i - 1; j >= 0; j--)
-	{
-		if (input[j] == ' ' || input[j] == '\t' || input[j] == ';')
-			break;
-
-	}
-	if (!new_str)
-		return (NULL);
-
-	/* Allocate a new string that contains the characters up to the last non-whitespace character */
-	new_str = malloc(sizeof(char) * (j + 2));
-	
-	/* Copy the characters up to the last non-whitespace character to the new string */
-	_memcpy(new_str, input, j + 1);
-	new_str[j + 1] = '\0';
-
-	/* Set the remaining part of the original string to null terminator */
-	input[j + 1] = '\0';
-
-	/* Copy the contents of the new string to the original string */
-	_strcpy(input, new_str);
-
-	/* Free the memory allocated for the new string */
-	free(new_str);
-
-	return (input);
+    int i = 0, comment_start = 0;
+    while (input[i] != '\0') {
+        if (input[i] == '#') {
+            if (i == 0) {
+                free(input);
+                return NULL;
+            }
+            if (input[i - 1] == ' ' || input[i - 1] == '\t' || input[i - 1] == ';')
+	    {
+                comment_start = i;
+            }
+        }
+        i++;
+    }
+    if (comment_start != 0) {
+        input = _realloc(input, i, comment_start + 1);
+        input[comment_start] = '\0';
+    }
+    return input;
 }
+
 
 /**
 *program_integration - repeatedly prompts the user for input, reads the input, and executes it
@@ -125,7 +104,7 @@ void program_integration(ShellData *ptr)
 		input = read_input(&ctrl_d);
 		if (ctrl_d != -1)
 		{
-			input = without_comment(input);
+			input = remove_comment(input);
 			if (input == NULL)
 				continue;
 			if (find_syntax_error(ptr, input) == 1)
