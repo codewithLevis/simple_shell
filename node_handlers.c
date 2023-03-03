@@ -21,12 +21,12 @@ VarNode_t *add_node(VarNode_t **start, int len_var, char *val, int len_val)
 	new_node->len_val = len_val;
 	new_node->next = NULL;
 
-	if (*start == NULL)
+	temp = *start;
+	if (temp == NULL)
 		*start = new_node;
 
 	else
 	{
-		temp = *start;
 		while (temp->next != NULL)
 			temp = temp->next;
 		temp->next = new_node;
