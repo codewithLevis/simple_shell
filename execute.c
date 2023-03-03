@@ -62,7 +62,7 @@ void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
 	int i = 0;
 	char delim[4] = ";|&";
 	char *sep_token; /*token based on separators*/
-	input = encoder(input, 1);
+	input = encoder(input, 0);
 
 	while (input[i])
 	{
@@ -82,7 +82,7 @@ void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
 
 	while (sep_token)
 	{
-		sep_token = encoder(sep_token, 0);
+		sep_token = encoder(sep_token, 1);
 		add_CommandLineNode(start, sep_token);
 		sep_token = my_strtok(NULL, delim);
 	}
@@ -144,7 +144,8 @@ int execute_commands(ShellData *ptr, char *input)
 	SeparatorNode *head = NULL, *curr;
 	CommandLineNode *start = NULL, *temp;
 	int flag;
-
+	
+	printf("I was not a oke to reach here");
 	parse_input(&head, &start, input);
 	curr = head;
 	temp = start;
