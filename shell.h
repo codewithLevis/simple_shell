@@ -201,7 +201,7 @@ int _atoi(const char* str);
 
 /*string4.c*/
 void _strrev(char *str);
-unsigned int _strspn(char *s, char *accept);
+unsigned int _strspn(char *s, const char *accept);
 char *_strpbrk(char *s, char *accept);
 
 /*tokenize.c*/
