@@ -9,7 +9,31 @@ void prompt(void)
 {
 	dprintf(STDIN_FILENO, "~$ ");
 }
+char *without_comment(char *in)
+{
+	int i, up_to;
 
+	up_to = 0;
+	for (i = 0; in[i]; i++)
+	{
+		if (in[i] == '#')
+		{
+			if (i == 0)
+			{
+				free(in);
+				return (NULL);
+			}
+			if (in[i - 1] == ' ' || in[i - 1] == '\t' || in[i - 1] == ';')
+				up_to = i;
+		}
+	}
+	if (up_to != 0)
+	{
+		in = _realloc(in, i, up_to + 1);
+		in[up_to] = '\0';
+	}
+	return (in);
+}
 /**
 *read_input - reads user input
 *@ctrl_d: cheking fo retur value of getline
@@ -101,7 +125,7 @@ void program_integration(ShellData *ptr)
 		input = read_input(&ctrl_d);
 		if (ctrl_d != -1)
 		{
-			input = remove_comment(input);
+			input = without_comment(input);
 			if (input == NULL)
 				continue;
 			if (find_syntax_error(ptr, input) == 1)
