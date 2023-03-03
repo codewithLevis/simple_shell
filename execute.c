@@ -148,13 +148,13 @@ int execute_commands(ShellData *ptr, char *input)
 	parse_input(&head, &start, input);
 	curr = head;
 	temp = start;
-
+	printf("Outside is cool");
 	while (temp != NULL)
 	{
+		printf("I was not a joke to reach here");
 		(*ptr).user_input = temp->command;
 		(*ptr).parsed_input_args = tokenize((*ptr).user_input, TOK_DELIM);
 
-		printf("I was not a joke to reach here");
 		flag = execute(ptr);
 		free((*ptr).parsed_input_args);
 
