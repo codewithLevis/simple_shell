@@ -61,7 +61,7 @@ char *my_strtok(char *str, const char *delim)
 	}
 
 	/* Skip over any leading delimiters */
-	str += strspn(str, delim);
+	str += _strspn(str, delim);
 	if (*str == '\0')
 	{
 		last_token = NULL;
@@ -70,7 +70,7 @@ char *my_strtok(char *str, const char *delim)
 
 	/* Find the end of the token */
 	token = str;
-	str = strpbrk(token, delim);
+	str = _strpbrk(token, delim);
 	if (str == NULL)
 		last_token = NULL;
 
@@ -80,7 +80,7 @@ char *my_strtok(char *str, const char *delim)
 		last_token = str + 1;
 	}
 
-	return (strdup(token));
+	return (_strdup(token));
 }
 /**
 *_strndup - creates a new memory location and duplicated a string of specified size
