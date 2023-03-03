@@ -99,40 +99,43 @@ int parse_vars(VarNode_t **head, char *input, char *status, ShellData *ptr)
 
 char *expansion(VarNode_t **start, const char *in, char *new, int new_len)
 {
-	VarNode_t *temp = *start;
-	int idx1 = 0, idx2 = 0, idx3;
+	VarNode_t *indx = *start;
+	int i = 0, j = 0, k;
 
-	while (in[idx1] != '\0' && idx2 < new_len - 1)
+	while (in[i] != '\0' && j < new_len - 1)
 	{
-		if (in[idx1] == '$')
+		if (in[i] == '$')
 		{
-			if (temp == NULL || temp->len_var == 0)
+			if (!(indx->len_var) && !(indx->len_val))
 			{
-				new[idx2] = in[idx1];
-				idx1++;
-				idx2++;
+				new[j] = in[i];
+				i++;
+				j++;
 			}
-			else if (temp->len_val == 0)
-				idx1 += temp->len_var;
+			else if (indx->len_var && !(indx->len_val))
+			{
+				for (k = 0; k < indx->len_var && j < new_len - 1; k++, j++)
+					new[j] = in[i + k];
+				i += indx->len_var;
+			}
 			else
 			{
-				for (idx3 = 0; idx3 < temp->len_val && idx2 < new_len - 1; idx3++, idx2++)
-				new[idx2] = temp->val[idx3];
-
-				idx1 += temp->len_var;
+				for (k = 0; k < indx->len_val && j < new_len - 1; k++, j++)
+					new[j] = indx->val[k];
+				i += indx->len_var;
 			}
-			temp = temp->next;
+			indx = indx->next;
 		}
 		else
 		{
-			new[idx2] = in[idx1];
-			idx1++;
-			idx2++;
+			new[j] = in[i];
+			i++;
+			j++;
 		}
 	}
 
-	new[idx2] = '\0';
-
+	new[j] = '\0';
+printf("NEW\n");
 	return (new);
 }
 
