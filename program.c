@@ -67,7 +67,7 @@ char *remove_comment(char *input)
 	new_str = malloc(sizeof(char) * (j + 2));
 	
 	/* Copy the characters up to the last non-whitespace character to the new string */
-	memcpy(new_str, input, j + 1);
+	_memcpy(new_str, input, j + 1);
 	new_str[j + 1] = '\0';
 
 	/* Set the remaining part of the original string to null terminator */
@@ -80,8 +80,6 @@ char *remove_comment(char *input)
 	free(new_str);
 
 	return (input);
-}
-
 }
 
 /**
