@@ -176,6 +176,8 @@ char *expand_variables(char *input, ShellData *ptr)
 	new = malloc(sizeof(char) * (pos2 + 1));
 
 	new = expansion(&start, input, new, pos2);
+	
+	printf("For something we move on\n");
 	free(input);
 	free(status);
 	free_VarNode_t(&start);
