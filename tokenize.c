@@ -48,7 +48,10 @@ char **tokenize(char *input, const char *delim)
 	char *token,**tokens = malloc(bufsize * sizeof(char*));
 
 	if (tokens == NULL)
-		return (NULL);
+	{
+		dprintf(STDERR_FILENO, ": allocation error\n");
+		exit(EXIT_FAILURE);
+	}
 
 	token = my_strtok(input, delim);
 
