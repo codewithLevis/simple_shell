@@ -135,7 +135,6 @@ char *expansion(VarNode_t **start, const char *in, char *new, int new_len)
 	}
 
 	new[j] = '\0';
-printf("NEW\n");
 	return (new);
 }
 
@@ -158,12 +157,9 @@ char *expand_variables(char *input, ShellData *ptr)
 	status = _itoa((*ptr).exit_status);
 	start = NULL;
 	pos1 = parse_vars(&start, input, status, ptr);
-	
-	printf("Up to here I am ok\n");
 
 	if (start == NULL)
 	{
-		printf("I start I am null\n");
 		free(status);
 		return (input);
 	}
@@ -180,10 +176,8 @@ char *expand_variables(char *input, ShellData *ptr)
 
 	new = expansion(&start, input, new, pos2);
 	
-	printf("For something we move on\n");
 	free(input);
 	free(status);
 	free_VarNode_t(&start);
-	printf("I am new input\n");
 	return (new);
 }
