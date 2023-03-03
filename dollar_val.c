@@ -160,6 +160,7 @@ char *expand_variables(char *input, ShellData *ptr)
 
 	if (start == NULL)
 	{
+		printf("I start I am null\n");
 		free(status);
 		return (input);
 	}
