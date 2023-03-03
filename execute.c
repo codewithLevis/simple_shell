@@ -145,7 +145,6 @@ int execute_commands(ShellData *ptr, char *input)
 	CommandLineNode *start = NULL, *temp;
 	int flag;
 	
-	printf("I was not a oke to reach here");
 	parse_input(&head, &start, input);
 	curr = head;
 	temp = start;
@@ -155,6 +154,7 @@ int execute_commands(ShellData *ptr, char *input)
 		(*ptr).user_input = temp->command;
 		(*ptr).parsed_input_args = tokenize((*ptr).user_input, TOK_DELIM);
 
+		printf("I was not a joke to reach here");
 		flag = execute(ptr);
 		free((*ptr).parsed_input_args);
 
