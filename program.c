@@ -9,31 +9,7 @@ void prompt(void)
 {
 	dprintf(STDIN_FILENO, "~$ ");
 }
-char *without_comment(char *in)
-{
-	int i, up_to;
 
-	up_to = 0;
-	for (i = 0; in[i]; i++)
-	{
-		if (in[i] == '#')
-		{
-			if (i == 0)
-			{
-				free(in);
-				return (NULL);
-			}
-			if (in[i - 1] == ' ' || in[i - 1] == '\t' || in[i - 1] == ';')
-				up_to = i;
-		}
-	}
-	if (up_to != 0)
-	{
-		in = _realloc(in, i, up_to + 1);
-		in[up_to] = '\0';
-	}
-	return (in);
-}
 /**
 *read_input - reads user input
 *@ctrl_d: cheking fo retur value of getline
@@ -63,25 +39,29 @@ char *read_input(int *ctrl_d)
 
 char *remove_comment(char *input)
 {
-    int i = 0, comment_start = 0;
-    while (input[i] != '\0') {
-        if (input[i] == '#') {
-            if (i == 0) {
-                free(input);
-                return NULL;
-            }
-            if (input[i - 1] == ' ' || input[i - 1] == '\t' || input[i - 1] == ';')
-	    {
-                comment_start = i;
-            }
-        }
-        i++;
-    }
-    if (comment_start != 0) {
-        input = _realloc(input, i, comment_start + 1);
-        input[comment_start] = '\0';
-    }
-    return input;
+	int i = 0, comment_start = 0;
+	while (input[i] != '\0')
+	{
+		if (input[i] == '#')
+		{
+			if (i == 0)
+			{
+				free(input);
+				return (NULL);
+			}
+			if (input[i - 1] == ' ' || input[i - 1] == '\t' || input[i - 1] == ';')
+			{
+				comment_start = i;
+			}
+		}
+		i++;
+	}
+	if (comment_start != 0)
+	{
+		input = _realloc(input, i, comment_start + 1);
+		input[comment_start] = '\0';
+	}
+	return (input);
 }
 
 
@@ -96,7 +76,7 @@ void program_integration(ShellData *ptr)
 	int flag = 1, ctrl_d;
 	char *input;
 
-	for (flag = 1; flag; flag = !ctrl_d)
+	for (; flag == 1;)
 	{
 		if (isatty(STDIN_FILENO))
 			prompt();
