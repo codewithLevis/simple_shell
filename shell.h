@@ -202,7 +202,7 @@ int _atoi(const char* str);
 /*string4.c*/
 void _strrev(char *str);
 unsigned int _strspn(char *s, const char *accept);
-char *_strpbrk(char *s, char *accept);
+char *_strpbrk(char *s, const char *accept);
 
 /*tokenize.c*/
 char **my_reallocate(char **ptr_arr, unsigned int old_len, unsigned int new_len);
