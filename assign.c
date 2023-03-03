@@ -17,7 +17,6 @@ void assign(ShellData *shell_data, char **command_line_args)
 	shell_data->command_line_args = command_line_args;
 	shell_data->user_input = NULL;
 	shell_data->parsed_input_args = NULL;
-	shell_data->environment_vars = NULL;
 	shell_data->process_id = _itoa(getpid());
 
 	for (i = 0; environ[i]; i++)
