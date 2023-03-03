@@ -46,42 +46,33 @@ char *_strchr(char *s, char c)
 */
 char *my_strtok(char *str, const char *delim)
 {
-	static char *last_token = NULL;
-	char *token = NULL;
+	static char *last = NULL;
+	char *tok_start, *tok_end;
 
-	if (str != NULL)
-		last_token = str;
-
-	else
-	{
-		if (last_token == NULL)
-			return (NULL);
-
-		str = last_token;
-	}
-
-	/* Skip over any leading delimiters */
-	str += _strspn(str, delim);
-	if (*str == '\0')
-	{
-		last_token = NULL;
-		return (NULL);
-	}
-
-	/* Find the end of the token */
-	token = str;
-	str = _strpbrk(token, delim);
 	if (str == NULL)
-		last_token = NULL;
+		str = last;
 
+	str += _strspn(str, delim);
+
+	if (*str == '\0')
+		return (NULL);
+
+	tok_start = str;
+	tok_end = _strpbrk(tok_start, delim);
+
+	if (tok_end != NULL)
+	{
+		*tok_end = '\0';
+		last = tok_end + 1;
+	}
 	else
 	{
-		*str = '\0';
-		last_token = str + 1;
+		last = tok_start + _strlen(tok_start);
 	}
 
-	return (_strdup(token));
+	return (tok_start);
 }
+
 /**
 *_strndup - creates a new memory location and duplicated a string of specified size
 *@str: pointer ro string to be duplicated
