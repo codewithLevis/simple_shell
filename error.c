@@ -107,6 +107,8 @@ int duplicates(char *input, int i)
 *@i: index
 *@offset: keep track of the last separator 
 *encountered in the input string
+*Return: an integer value that represents the index in the
+*input string where an error occurs, if any
 */
 int check_separator(char *input, int i, char offset)
 {
