@@ -184,5 +184,6 @@ char *expand_variables(char *input, ShellData *ptr)
 	free(input);
 	free(status);
 	free_VarNode_t(&start);
+	printf("I am new input\n");
 	return (new);
 }
