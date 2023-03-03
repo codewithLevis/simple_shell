@@ -33,7 +33,7 @@ int get_int_length(int num)
 		num *= -1;/*make num positive for counting digits*/
 	}
 
-	while (num > 9)
+	while (num > 0)
 	{
 		length++;
 		num /= 10;
@@ -90,7 +90,7 @@ char *_memcpy(char *dest, char *src, unsigned int n)
 {
 	unsigned int i = 0;
 
-	while (i < n)
+	while (i < n - 1)
 	{
 		dest[i] = src[i];
 		i++;
