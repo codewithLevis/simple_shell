@@ -85,6 +85,7 @@ int parse_vars(VarNode_t **head, char *input, char *status, ShellData *ptr)
 		}
 		index++;
 	}
+	printf("Up to here I am ok");
 	return (index);
 }
 
