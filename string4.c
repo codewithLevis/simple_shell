@@ -31,7 +31,7 @@ void _strrev(char *str)
  * @accept: string containing the characters to match.
  * Return: the number of bytes in the initial segment of s which consist only of bytes from accept.
  */
-unsigned int _strspn(char *s, char *accept)
+unsigned int _strspn(char *s, const char *accept)
 {
 	unsigned int i, j, match;
 
