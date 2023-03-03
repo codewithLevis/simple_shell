@@ -74,12 +74,12 @@ CommandLineNode *add_CommandLineNode(CommandLineNode **start, char *command)
 	new_node->command = command;
 	new_node->next = NULL;
 
-	if (*start == NULL)
+	curr = *start;
+	if (curr == NULL)
 		*start = new_node;
 
 	else
 	{
-		curr = *start;
 		do {
 			curr = curr->next;
 		} while (curr->next != NULL);
@@ -105,11 +105,11 @@ SeparatorNode *add_SeparatorNode(SeparatorNode **head, char symbol)
 	new_node->symbol = symbol;
 	new_node->next = NULL;
 
-	if (*head == NULL)
+	current_node = *head;
+	if (current_node == NULL)
 		*head = new_node;
 	else
 	{
-		current_node = *head;
 		while (current_node->next != NULL)
 			current_node = current_node->next;
 
