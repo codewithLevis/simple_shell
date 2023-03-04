@@ -85,10 +85,7 @@ CommandLineNode *add_CommandLineNode(CommandLineNode **start, char *command)
 		} while (curr->next != NULL);
 		curr->next = new_node;
 	}
-	if (*start == NULL)
-		printf("start is null\n");
-	else
-		printf("start is ok");
+	
 	return (*start);
 }
 
@@ -119,9 +116,5 @@ SeparatorNode *add_SeparatorNode(SeparatorNode **head, char symbol)
 		current_node->next = new_node;
 	}
 	
-	if (*head == NULL)
-		printf("head is null\n");
-	else
-		printf("head is ok");
 	return (*head);
 }
