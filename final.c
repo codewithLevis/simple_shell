@@ -115,61 +115,7 @@ char *get_path(char *cmd, char **envp)
 	}
 	return (NULL);
 }
-char *_strcat(char *dest, const char *src)
-{
-    char *dest_ptr = dest;
-    while (*dest_ptr != '\0') {
-        dest_ptr++;
-    }
-    while (*src != '\0') {
-        *dest_ptr++ = *src++;
-    }
-    *dest_ptr = '\0';
-    return dest;
-}
 
-char *_which(char *cmd, char **_environ)
-{
-	char *path, *ptr_path, *token_path, *dir;
-	int len_dir, len_cmd, i;
-	struct stat st;
-
-	path = _getenv("PATH", _environ);
-	if (path)
-	{
-		ptr_path = _strdup(path);
-		len_cmd = _strlen(cmd);
-		token_path = my_strtok(ptr_path, ":");
-		i = 0;
-		while (token_path != NULL)
-		{
-			if (is_path_segment(path, &i))
-				if (stat(cmd, &st) == 0)
-					return (cmd);
-			len_dir = _strlen(token_path);
-			dir = malloc(len_dir + len_cmd + 2);
-			_strcpy(dir, token_path);
-			_strcat(dir, "/");
-			_strcat(dir, cmd);
-			_strcat(dir, "\0");
-			if (stat(dir, &st) == 0)
-			{
-				free(ptr_path);
-				return (dir);
-			}
-			free(dir);
-			token_path = my_strtok(NULL, ":");
-		}
-		free(ptr_path);
-		if (stat(cmd, &st) == 0)
-			return (cmd);
-		return (NULL);
-	}
-	if (cmd[0] == '/')
-		if (stat(cmd, &st) == 0)
-			return (cmd);
-	return (NULL);
-}
 /**
 *execute_cmd - to execute a shell command given its arguments, wait for the command to complete
 *and set the status of the data_shell struct accordingly
@@ -181,45 +127,46 @@ char *_which(char *cmd, char **_environ)
 *If there is an error with the command, the function returns 1
 *the function forks a child process to execute the command using the execve system call
 */
-int execute_cmd(char **args, char **environ_vars, ShellData *ptr)
+int execute_cmd(ShellData *shell_data)
 {
-	pid_t pid;
-	int status;
-	int is_executable;
-	char *path;
+    pid_t pid;
+    pid_t wait_pid;
+    int status;
+    int exec_flag;
+    char *directory;
 
-	is_executable = is_command_executable(args[0], ptr);
-	if (is_executable == -1)
-		return (1);
-	if (is_executable == 0)
-	{
-		path = _which(args[0], environ_vars);
-		if (search_cmd_error(path, ptr) == 1)
-			return (1);
-	}
+    exec_flag = is_command_executable(shell_data->parsed_input_args[0], shell_data);
+    if (exec_flag == -1)
+        return (1);
+    if (exec_flag == 0)
+    {
+        directory = get_path(shell_data->parsed_input_args[0], shell_data->environment_vars);
+        if (search_cmd_error(directory, shell_data) == 1)
+            return (1);
+    }
+    pid = fork();
+    if (pid == 0)
+    {
+        if (exec_flag == 0)
+            directory = get_path(shell_data->parsed_input_args[0], shell_data->environment_vars);
+        else
+            directory = shell_data->parsed_input_args[0];
+        execve(directory + exec_flag, shell_data->args, shell_data->environment_vars);
+    }
+    else if (pid < 0)
+    {
+        perror(shell_data->command_line_args[0]);
+        return (1);
+    }
+    else
+    {
+        do {
+            wait_pid = waitpid(pid, &status, WUNTRACED);
+        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+    }
 
-	pid = fork();
-	if (pid == 0)
-	{
-		if (execve(args[0], args, environ_vars) == -1)
-		{
-			perror("execve");
-			exit(EXIT_FAILURE);
-		}
-	}
-	else if (pid < 0)
-	{
-		perror("fork");
-		return (1);
-	}
-	else {
-		do {
-			waitpid(pid, &status, WUNTRACED);
-		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
-	}
-	
-	(*ptr).exit_status = (status / 256);
-	return (1);
+    shell_data->exit_status = status / 256;
+    return (1);
 }
 
 
@@ -246,5 +193,5 @@ int execute(ShellData *ptr)
 		return (builtin(ptr));
 
 	/*Execute external command*/
-	return (execute_cmd((*ptr).parsed_input_args, (*ptr).environment_vars, ptr));
+	return (execute_cmd(ptr));
 }
