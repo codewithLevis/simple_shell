@@ -151,7 +151,7 @@ int execute_commands(ShellData *ptr, char *input);
 int is_command_executable(char *command, ShellData *ptr);
 int is_path_segment(char *path, int *index);
 char *get_path(char *cmd, char **envp);
-int execute_cmd(char **args, char **environ_vars, ShellData *ptr);
+int execute_cmd(ShellData *shell_data)
 int execute(ShellData *ptr);
 
 /*help2.c*/
