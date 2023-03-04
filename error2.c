@@ -100,7 +100,7 @@ char *not_found_err(ShellData *ptr)
 
 	str = _itoa(ptr->command_counter);
 	len =  _strlen(ptr->command_line_args[0]) + _strlen(str)+ _strlen(ptr->command_line_args[0]) + 1;
-	err = malloc(sizeof(char) * (len + 12));
+	err = malloc(sizeof(char) * (len + 14));
 	if (err== NULL)
 	{
 		free(str);
