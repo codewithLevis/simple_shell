@@ -115,8 +115,71 @@ char *get_path(char *cmd, char **envp)
 	}
 	return (NULL);
 }
+char *_strcat(char *dest, const char *src)
+{
+    char *dest_ptr = dest;
+    while (*dest_ptr != '\0') {
+        dest_ptr++;
+    }
+    while (*src != '\0') {
+        *dest_ptr++ = *src++;
+    }
+    *dest_ptr = '\0';
+    return dest;
+}
 
+char *_strcpy(char *dest, const char *src)
+{
+    char *dest_ptr = dest;
+    while (*src != '\0') {
+        *dest_ptr++ = *src++;
+    }
+    *dest_ptr = '\0';
+    return dest;
+}
 
+char *_which(char *cmd, char **_environ)
+{
+	char *path, *ptr_path, *token_path, *dir;
+	int len_dir, len_cmd, i;
+	struct stat st;
+
+	path = _getenv("PATH", _environ);
+	if (path)
+	{
+		ptr_path = _strdup(path);
+		len_cmd = _strlen(cmd);
+		token_path = _strtok(ptr_path, ":");
+		i = 0;
+		while (token_path != NULL)
+		{
+			if (is_path_segment(path, &i))
+				if (stat(cmd, &st) == 0)
+					return (cmd);
+			len_dir = _strlen(token_path);
+			dir = malloc(len_dir + len_cmd + 2);
+			_strcpy(dir, token_path);
+			_strcat(dir, "/");
+			_strcat(dir, cmd);
+			_strcat(dir, "\0");
+			if (stat(dir, &st) == 0)
+			{
+				free(ptr_path);
+				return (dir);
+			}
+			free(dir);
+			token_path = _strtok(NULL, ":");
+		}
+		free(ptr_path);
+		if (stat(cmd, &st) == 0)
+			return (cmd);
+		return (NULL);
+	}
+	if (cmd[0] == '/')
+		if (stat(cmd, &st) == 0)
+			return (cmd);
+	return (NULL);
+}
 /**
 *execute_cmd - to execute a shell command given its arguments, wait for the command to complete
 *and set the status of the data_shell struct accordingly
@@ -140,7 +203,7 @@ int execute_cmd(char **args, char **environ_vars, ShellData *ptr)
 		return (1);
 	if (is_executable == 0)
 	{
-		path = get_path(args[0], environ_vars);
+		path = _which(args[0], environ_vars);
 		if (search_cmd_error(path, ptr) == 1)
 			return (1);
 	}
@@ -168,6 +231,7 @@ int execute_cmd(char **args, char **environ_vars, ShellData *ptr)
 	(*ptr).exit_status = (status / 256);
 	return (1);
 }
+
 
 /**
 *execute - execute built-in commands or
