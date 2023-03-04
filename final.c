@@ -87,7 +87,7 @@ char *get_path(char *cmd, char **envp)
 		i = 0;
 
 		do {
-			if (is_cdir(path, &i))
+			if (is_path_segment(path, &i))
 			{
 				if (stat(cmd, &st) == 0)
 					return (cmd);
