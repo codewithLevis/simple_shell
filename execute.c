@@ -63,7 +63,8 @@ void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
 	char delim[4] = ";|&";
 	char *sep_token; /*token based on separators*/
 	input = encoder(input, 0);
-
+	
+	i = 0;
 	while (input[i])
 	{
 		if (input[i] == ';')
@@ -81,7 +82,7 @@ void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
     
     /*tokenize the input by separators and add to the command list*/
 	sep_token = my_strtok(input, delim);
-	printf("you i am null 1");
+	printf("you i am null 1\n");
 
 	while (sep_token != NULL)
 	{
@@ -92,7 +93,7 @@ void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
 	}
 	
 	if (sep_token == NULL)
-		printf("you i am null 2");
+		printf("you i am null 2\n");
 }
 
 /**
