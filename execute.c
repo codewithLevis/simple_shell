@@ -67,11 +67,11 @@ void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
 	while (input[i])
 	{
 		if (input[i] == ';')
-			add_SeparatorNode(head, input[i]);
+			add_sep_node_end(head, input[i]);
 
 		if (input[i] == '|' || input[i] == '&')
 		{
-			add_SeparatorNode(head, input[i]);
+			add_sep_node_end(head, input[i]);
 			i++;
 		}
 		i++;
@@ -83,7 +83,7 @@ void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
 	while (sep_token != NULL)
 	{
 		sep_token = encoder(sep_token, 1);
-		add_CommandLineNode(start, sep_token);
+		add_line_node_end(start, sep_token);
 		sep_token = my_strtok(NULL, delim);
 	}
 }
@@ -129,7 +129,87 @@ void get_next(CommandLineNode **head, SeparatorNode **start, ShellData *ptr)
         
 }
 
+SeparatorNode *add_sep_node_end(SeparatorNode **head, char sep)
+{
+	SeparatorNode *new, *temp;
 
+	new = malloc(sizeof(SeparatorNode));
+	if (new == NULL)
+		return (NULL);
+
+	new->separator = sep;
+	new->next = NULL;
+	temp = *head;
+
+	if (temp == NULL)
+	{
+		*head = new;
+	}
+	else
+	{
+		while (temp->next != NULL)
+			temp = temp->next;
+		temp->next = new;
+	}
+printf("in add_sep_node_end");
+	return (*head);
+}void free_sep_list(SeparatorNode **head)
+{
+	SeparatorNode *temp;
+	SeparatorNode *curr;
+
+	if (head != NULL)
+	{
+		curr = *head;
+		while ((temp = curr) != NULL)
+		{
+			curr = curr->next;
+			free(temp);
+		}
+		*head = NULL;
+	}
+}
+CommandLineNode *add_line_node_end(CommandLineNode **head, char *line)
+{
+	CommandLineNode *new, *temp;
+
+	new = malloc(sizeof(CommandLineNode));
+	if (new == NULL)
+		return (NULL);
+
+	new->line = line;
+	new->next = NULL;
+	temp = *head;
+
+	if (temp == NULL)
+	{
+		*head = new;
+	}
+	else
+	{
+		while (temp->next != NULL)
+			temp = temp->next;
+		temp->next = new;
+	}
+printf("in add_line_node_end");
+	return (*head);
+}
+void free_line_list(CommandLineNode **head)
+{
+	CommandLineNode *temp;
+	CommandLineNode *curr;
+
+	if (head != NULL)
+	{
+		curr = *head;
+		while ((temp = curr) != NULL)
+		{
+			curr = curr->next;
+			free(temp);
+		}
+		*head = NULL;
+	}
+}
 /**
 *execute_commands - split a command line input into separate
 *commands separated by specific separator characters (;, |, or &)
@@ -168,8 +248,8 @@ int execute_commands(ShellData *ptr, char *input)
 			temp = temp->next;
 	}
 
-	free_SeparatorNode_list(&head);
-	free_CommandLineNode_list(&start);
+	free_sep_list(&head);
+	free_line_list(&start);
 	if (flag == 0)
 		return (0);
 	return (1);
