@@ -14,40 +14,56 @@
 char *encoder(char *input, int encode)
 {
 	int i;
-
 	if (encode == 1)
 	{
-		for (i = 0; input[i] != '\0'; i++)
+		i = 0;
+		while (input[i] != '\0')
 		{
 			if (input[i] == 16)
+			{
 				input[i] = '|';
-			if (input[i] == 12)
+			}
+			else if (input[i] == 12)
+			{
 				input[i] = '&';
+			}
+			i++;
 		}
 	}
 	else
 	{
-		while (*input != '\0')
+		i = 0;
+
+		while (input[i] != '\0')
 		{
-			if (*input == '|')
+			if (input[i] == '|')
 			{
-				if (*(input + 1) != '|')
-					*input = 16;
+				if (input[i+1] != '|')
+				{
+					input[i] = 16;
+				}
 				else
-					input++;
+				{
+					i++;
+				}
 			}
-			if (*input == '&')
+			else if (input[i] == '&')
 			{
-				if (*(input + 1) != '&')
-					*input = 12;
+				if (input[i+1] != '&')
+				{
+					input[i] = 12;
+				}
 				else
-					input++;
+				{
+					i++;
+				}
 			}
-			input++;
+			i++;
 		}
 	}
 	return (input);
 }
+
 
 /**
 *parse_input - function for parsing input by use of separators
