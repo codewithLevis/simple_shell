@@ -107,7 +107,6 @@ void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
 		sep_token = my_strtok(NULL, delim);
 	}
 	
-	if (sep_token == NULL)
 }
 
 /**
