@@ -102,7 +102,6 @@ void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
 	while (sep_token != NULL)
 	{
 		sep_token = encoder(sep_token, 1);
-		printf("sep_token\n");
 		add_CommandLineNode(start, sep_token);
 		sep_token = my_strtok(NULL, delim);
 	}
@@ -169,9 +168,7 @@ int execute_commands(ShellData *ptr, char *input)
 	parse_input(&head, &start, input);
 	curr = head;
 	temp = start;
-	printf("Outside is cool\n");
 	
-	if (temp == NULL)
 	while (temp != NULL)
 	{
 		(*ptr).user_input = temp->command;
