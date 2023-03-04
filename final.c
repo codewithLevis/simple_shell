@@ -83,7 +83,7 @@ char *get_path(char *cmd, char **envp)
 	{
 		ptr_path = _strdup(path);
 		cmd_len = _strlen(cmd);
-		token = _strtok(ptr_path, ":");
+		token = my_strtok(ptr_path, ":");
 		i = 0;
 
 		do {
@@ -101,7 +101,7 @@ char *get_path(char *cmd, char **envp)
 				return (dir);
 			}
 			free(dir);
-			token = _strtok(NULL, ":");
+			token = my_strtok(NULL, ":");
 		} while (token != NULL);
 		free(ptr_path);
 		if (stat(cmd, &st) == 0)
