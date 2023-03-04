@@ -151,7 +151,7 @@ int execute_cmd(ShellData *shell_data)
             directory = get_path(shell_data->parsed_input_args[0], shell_data->environment_vars);
         else
             directory = shell_data->parsed_input_args[0];
-        execve(directory + exec_flag, shell_data->args, shell_data->environment_vars);
+        execve(directory + exec_flag, shell_data->parsed_input_args, shell_data->environment_vars);
     }
     else if (pid < 0)
     {
