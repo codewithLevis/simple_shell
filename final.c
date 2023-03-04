@@ -74,48 +74,48 @@ int is_path_segment(char *path, int *index)
 */
 char *get_path(char *cmd, char **envp)
 {
-	char *path, *dir, *token, *path_end;
-	int cmd_len, dir_len, index  = 0;
+	char *path, *ptr_path, *token, *dir;
+	int dir_len, cmd_len, i;
 	struct stat st;
 
 	path = _getenv("PATH", envp);
-	if (path == NULL)
+	if (path)
 	{
-		if (cmd[0] == '/' && stat(cmd, &st) == 0)
-			return (cmd);
+		ptr_path = _strdup(path);
+		cmd_len = _strlen(cmd);
+		token = _strtok(ptr_path, ":");
+		i = 0;
+
+		do {
+			if (is_cdir(path, &i))
+			{
+				if (stat(cmd, &st) == 0)
+					return (cmd);
+			}
+			dir_len = _strlen(token);
+			dir = malloc(dir_len + cmd_len + 2);
+			sprintf(dir, "%s/%s", token, cmd);
+			if (stat(dir, &st) == 0)
+			{
+				free(ptr_path);
+				return (dir);
+			}
+			free(dir);
+			token = _strtok(NULL, ":");
+		} while (token != NULL);
+		free(ptr_path);
+		if (stat(cmd, &st) == 0)
+		return (cmd);
 		return (NULL);
 	}
-
-	cmd_len = _strlen(cmd);
-	path_end = path + _strlen(path);
-	index = 0;
-	for (token = path; token < path_end; token += index + 1)
+	if (cmd[0] == '/')
 	{
-		if (is_path_segment(token, &index))
-			continue;
-
-		dir_len = token - path;
-		dir = malloc(dir_len + cmd_len + 2);
-		if (dir == NULL)
-			return (NULL);
-
-		sprintf(dir, "%.*s/%s", dir_len, path, cmd);
-
-		if (stat(dir, &st) == 0)
-		{
-			free(path);
-			return (dir);
-		}
-
-		free(dir);
+		if (stat(cmd, &st) == 0)
+			return (cmd);
 	}
-
-	free(path);
-	if (cmd[0] == '/' && stat(cmd, &st) == 0)
-		return (cmd);
-
 	return (NULL);
 }
+
 
 /**
 *execute_cmd - to execute a shell command given its arguments, wait for the command to complete
