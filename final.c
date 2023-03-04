@@ -128,16 +128,6 @@ char *_strcat(char *dest, const char *src)
     return dest;
 }
 
-char *_strcpy(char *dest, const char *src)
-{
-    char *dest_ptr = dest;
-    while (*src != '\0') {
-        *dest_ptr++ = *src++;
-    }
-    *dest_ptr = '\0';
-    return dest;
-}
-
 char *_which(char *cmd, char **_environ)
 {
 	char *path, *ptr_path, *token_path, *dir;
