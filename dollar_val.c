@@ -8,7 +8,8 @@
 *@in: a pointer to the input string
 *it is substrings of user input
 *starting with $ followed by the name of an environment variable
-*@prt: a pointer to a ShellData struct that contains information about the shell
+*@ptr: a pointer to a ShellData struct that
+*contains information about the shell
 */
 
 void search_env_var(VarNode_t **start, char *in, ShellData *ptr)
@@ -31,13 +32,18 @@ void search_env_var(VarNode_t **start, char *in, ShellData *ptr)
 	}
 
 	j = 0;
-	while ( in[j] && in[j] != ' ' && in[j] != '\t' && in[j] != ';' && in[j] != '\n')
+	while (in[j] != NULL)
+	{
+		if (in[j] != ' ' || in[j] != '\t' || in[j] != ';' || in[j] != '\n')
+			break;
 		j++;
+	}
 	add_node(start, j, NULL, 0);
 }
 
 /**
-*parse_vars -  checks for the presence of these special variables in a given input
+*parse_vars -  checks for the presence of
+*these special variables in a given input
 *string, and creates a new node in a linked list data structure
 *to store their values for later use in the shell program
 *@head: pointer to a to linked list of VarNode_t
@@ -51,6 +57,7 @@ void search_env_var(VarNode_t **start, char *in, ShellData *ptr)
 int parse_vars(VarNode_t **head, char *input, char *status, ShellData *ptr)
 {
 	int i, index = 0, status_len = 0, pid_len = 0;
+
 	status_len = _strlen(status);
 	pid_len = _strlen(ptr->process_id);
 	
@@ -127,7 +134,8 @@ char *expansion(VarNode_t **start, const char *in, char *new, int new_len)
 }
 
 /**
-*expand_variables - replaces all occurrences of shell variables in the input string with
+*expand_variables - replaces all occurrences
+*of shell variables in the input string with
 *their corresponding values, if they exist in the environment
 *@input: pointer to a string representing the user input
 *@ptr: struct that holds data related to the current shell session
@@ -163,7 +171,7 @@ char *expand_variables(char *input, ShellData *ptr)
 	new = malloc(sizeof(char) * (pos2 + 1));
 
 	new = expansion(&start, input, new, pos2);
-	
+
 	free(input);
 	free(status);
 	free_VarNode_t(&start);
