@@ -32,7 +32,7 @@ void search_env_var(VarNode_t **start, char *in, ShellData *ptr)
 	}
 
 	j = 0;
-	while (in[j] != NULL)
+	while (in[j] != '\0')
 	{
 		if (in[j] != ' ' || in[j] != '\t' || in[j] != ';' || in[j] != '\n')
 			break;
@@ -60,7 +60,7 @@ int parse_vars(VarNode_t **head, char *input, char *status, ShellData *ptr)
 
 	status_len = _strlen(status);
 	pid_len = _strlen(ptr->process_id);
-	
+
 	for (i = 0; input[i]; i++)
 	{
 		if (input[i] == '$')
