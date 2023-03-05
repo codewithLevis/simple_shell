@@ -99,13 +99,13 @@ int duplicates(char *input, int i)
 		input--;
 	}
 	return (i);
-}	
+}
 /**
 *check_separator - function checks for syntax
 *errors related to separators
 *@input: pointer to user input
 *@i: index
-*@offset: keep track of the last separator 
+*@offset: keep track of the last separator
 *encountered in the input string
 *Return: an integer value that represents the index in the
 *input string where an error occurs, if any
