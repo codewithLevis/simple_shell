@@ -76,7 +76,7 @@ void program_integration(ShellData *ptr)
 	int flag = 1, ctrl_d;
 	char *input;
 
-	for (; flag == 1;)
+	while(flag == 1)
 	{
 		if (isatty(STDIN_FILENO))
 			prompt();
