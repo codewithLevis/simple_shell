@@ -74,7 +74,7 @@ void print_shell_error(ShellData *ptr_data, char *input, int idx, int t_msg)
 		free(counter);
 		return;
 	}
-	
+
 	shell = ptr_data->command_line_args[0];
 	sprintf(err, "%s: %s%s%s%s", shell, counter, m2, m, m3);
 	err[length] = '\0';
@@ -99,10 +99,9 @@ int duplicates(char *input, int i)
 		input--;
 	}
 	return (i);
-}
-	
+}	
 /**
-*check_separator - function checks for syntax 
+*check_separator - function checks for syntax
 *errors related to separators
 *@input: pointer to user input
 *@i: index
@@ -114,13 +113,12 @@ int duplicates(char *input, int i)
 int check_separator(char *input, int i, char offset)
 {
 	int count;
-	
+
 	while (*input != '\0')
 	{
 		if (*input == ' ' || *input == '\t')
 		{
-			input++;
-			i++;
+			input++, i++;
 			continue;
 		}
 		if (*input == ';')
@@ -151,8 +149,7 @@ int check_separator(char *input, int i, char offset)
 			}
 		}
 		offset = *input;
-		input++;
-		i++;
+		input++, i++;
 	}
 	return (0);
 }
