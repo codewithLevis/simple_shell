@@ -9,15 +9,15 @@
 */
 char *_strncpy(char *dest, char *src, int n)
 {
-        int i;
+	int i;
 
-        for (i = 0; i < n; i++)
-                dest[i] = src[i];
+	for (i = 0; i < n; i++)
+		dest[i] = src[i];
 
-        for (; i < n; i++)
-       		dest[i] = '\0';
+	for (; i < n; i++)
+		dest[i] = '\0';
 
-        return (dest);
+	return (dest);
 }
 
 /**
@@ -28,14 +28,14 @@ char *_strncpy(char *dest, char *src, int n)
 */
 char *_strchr(char *s, char c)
 {
-        while(*s)
-        {
-                if (*s == c)
-                        return (s);
-                s++;
-        }
+	while(*s)
+	{
+		if (*s == c)
+			return (s);
+		s++;
+	}
 
-        return (NULL);
+	return (NULL);
 }
 
 /**
@@ -46,7 +46,7 @@ char *_strchr(char *s, char c)
 */
 char *my_strtok(char *str, const char *delim)
 {
-	static char *last = NULL;
+	static char *last;
 	char *tok_start, *tok_end;
 
 	if (str == NULL)
@@ -74,7 +74,8 @@ char *my_strtok(char *str, const char *delim)
 }
 
 /**
-*_strndup - creates a new memory location and duplicated a string of specified size
+*_strndup - creates a new memory location and
+*duplicated a string of specified size
 *@str: pointer ro string to be duplicated
 *@i: bytes
 *Return: a pointer to a newly allocated space in memory
