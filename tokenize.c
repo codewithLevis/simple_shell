@@ -44,8 +44,9 @@ char **my_reallocate(char **ptr, unsigned int old_len, unsigned int new_len)
 char **tokenize(char *input, const char *delim)
 {
 	size_t bufsize = TOK_BUFSIZE;
-	size_t i;
-	char *token, **tokens = malloc(bufsize * sizeof(char *));
+	size_t i = 0;
+	char **tokens = malloc(bufsize * sizeof(char *));
+	char *token;
 
 	if (tokens == NULL)
 	{
@@ -55,23 +56,27 @@ char **tokenize(char *input, const char *delim)
 
 	token = my_strtok(input, delim);
 
-	i = 0;
 	while (token != NULL)
 	{
-		tokens[i++] = _strdup(token);
+		tokens[i] = token;
+		i++;
+
 		if (i >= bufsize)
 		{
 			bufsize += TOK_BUFSIZE;
-			tokens = my_reallocate(tokens, i, bufsize * sizeof(char *));
-
+			tokens = my_reallocate(tokens, bufsize * sizeof(char *));
 			if (tokens == NULL)
 			{
 				dprintf(STDERR_FILENO, ": allocation error\n");
 				exit(EXIT_FAILURE);
 			}
 		}
+
 		token = my_strtok(NULL, delim);
 	}
+
 	tokens[i] = NULL;
+
 	return (tokens);
 }
+
