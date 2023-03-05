@@ -130,7 +130,7 @@ char *expansion(VarNode_t **start, const char *in, char *new, int new_len)
 *expand_variables - replaces all occurrences of shell variables in the input string with
 *their corresponding values, if they exist in the environment
 *@input: pointer to a string representing the user input
-*@ptr: struct that holds data related to the current shell session	
+*@ptr: struct that holds data related to the current shell session
 *Return: a new string with the variable substitutions made
 *expansion: helper function that actually replaces
 *the variable occurrences with their values in the input string
