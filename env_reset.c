@@ -51,7 +51,7 @@ int _setenv(ShellData *ptr)
 		}
 		free(var_env);
 	}
-	
+
 	env = ptr->environment_vars;
 	env = _realloc_double_ptr(env, i, sizeof(char *) * (i + 2));
 	env[i] = _create_env_var(name, value);
@@ -86,13 +86,11 @@ int _unsetenv(ShellData *ptr)
 		free(var);
 		i++;
 	}
-
 	if (k == -1)
 	{
 		handle_error(ptr, -1);
 		return (1);
 	}
-
 	new_environment_vars = malloc(sizeof(char *) * i);
 	i = j = 0;
 	while (ptr->environment_vars[i])
@@ -143,13 +141,12 @@ char *_getenv(const char *value, char **env)
 
 
 /**
- * set_environment_variable - sets an environment variable
- *
- * @key: name of the variable to be set
- * @value: value to be set for the variable
- * @datash: data relevant (environ)
- * Return: no return
- */
+* _set2env - sets an environment variable
+*ptr: shell pointer
+* @key: name of the variable to be set
+* @value: value to be set for the variable
+* Return: no return
+*/
 void _set2env(char *key, char *value, ShellData *ptr)
 {
 	int index, len_env;
