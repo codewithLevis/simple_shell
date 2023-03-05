@@ -106,7 +106,7 @@ char *not_found_err(ShellData *ptr)
 		free(str);
 		return NULL;
 	}
-	sprintf(err, "%s: %s: %s: not found\n",ptr->command_line_args[0], str, ptr->command_line_args[0]);
+	sprintf(err, "%s: %s: %s: not found\n",ptr->command_line_args[0], str, parsed_input_args[0]);
 	free(str);
 	return (err);
 }
