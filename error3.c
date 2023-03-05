@@ -8,33 +8,35 @@
 
 char *generate_cd_err(ShellData *ptr)
 {
-    int len, len_id;
-    char *err, *str, *msg;
+        int len, len_id;
+        char *err, *str, *msg, *args, *arg_in;
 
-    str = _itoa(ptr->command_counter);
-    if ( ptr->parsed_input_args[1][0] == '-')
-    {
-        msg = ": Illegal option ";
-        len_id = 2;
-    }
-    else
-    {
-        msg = ": can't cd to ";
-        len_id = _strlen( ptr->parsed_input_args[1]);
-    }
-    len = _strlen( ptr->command_line_args[0]) + _strlen(ptr->parsed_input_args[0]);
-    len += _strlen(str) + _strlen(msg) + len_id + 5;
-    err = malloc(sizeof(char) * (len + 1));
-    if (err == NULL)
-    {
+        str = _itoa(ptr->command_counter);
+        if ( ptr->parsed_input_args[1][0] == '-')
+        {
+                msg = ": Illegal option ";
+                len_id = 2;
+        }
+        else
+        {
+                msg = ": can't cd to ";
+                len_id = _strlen( ptr->parsed_input_args[1]);
+        }
+        args = ptr->command_line_args[0];
+        arg_in = ptr->parsed_input_args[0];
+        len = _strlen(args) + _strlen(arg_in);
+        len += _strlen(str) + _strlen(msg) + len_id + 5;
+        err = malloc(sizeof(char) * (len + 1));
+        if (err == NULL)
+        {
+                free(str);
+                return (NULL);
+        }
+
+        sprintf(err, "%s: %s: %s%s%s", args, str, msg, ptr->parsed_input_args[1], "\n");
+
         free(str);
-        return (NULL);
-    }
-
-    sprintf(err, "%s: %s: %s%s%s", ptr->command_line_args[0], str, msg, ptr->parsed_input_args[1], "\n");
-
-    free(str);
-    return (err);
+        return (err);
 }
 
 /**
@@ -47,8 +49,8 @@ int search_cmd_error(char *dir, ShellData *ptr)
 {
         if (dir == NULL)
         {
-        handle_error(ptr, 127);
-        return (1);
+                handle_error(ptr, 127);
+                return (1);
         }
 
         if (_strcmp((*ptr).parsed_input_args[0], dir) != 0)
