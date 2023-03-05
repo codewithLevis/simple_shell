@@ -21,9 +21,6 @@ char *read_input(int *ctrl_d)
 	size_t buf = 0;
 
 	*ctrl_d = getline(&input, &buf, stdin);
-	
-	if (*ctrl_d == -1)
-		printf("I am -1");
 
 	return (input);
 }
@@ -74,7 +71,7 @@ void program_integration(ShellData *ptr)
 	int flag = 1, ctrl_d;
 	char *input;
 
-	while(flag == 1)
+	for (; flag == 1;)
 	{
 		if (isatty(STDIN_FILENO))
 			prompt();
