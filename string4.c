@@ -26,10 +26,12 @@ void _strrev(char *str)
 }
 
 /**
- * _strspn - calculates the length of the initial segment of s which only contains bytes from accept.
+ * _strspn - calculates the length of the initial
+ *segment of s which only contains bytes from accept.
  * @s: string to be searched.
  * @accept: string containing the characters to match.
- * Return: the number of bytes in the initial segment of s which consist only of bytes from accept.
+ * Return: the number of bytes in the initial
+ *segment of s which consist only of bytes from accept.
  */
 unsigned int _strspn(char *s, const char *accept)
 {
@@ -56,7 +58,8 @@ unsigned int _strspn(char *s, const char *accept)
  * _strpbrk - searches a string for any of a set of bytes.
  * @s: string to be searched.
  * @accept: string containing the characters to match.
- * Return: a pointer to the byte in s that matches one of the bytes in accept, or NULL if no such byte is found.
+ * Return: a pointer to the byte in s that matches
+ *one of the bytes in accept, or NULL if no such byte is found.
  */
 char *_strpbrk(char *s, const char *accept)
 {
