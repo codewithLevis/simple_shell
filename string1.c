@@ -44,7 +44,7 @@ int get_int_length(int num)
 
 /**
 *_itoa - converts interger to a string
-*@num: number to convert
+*@n: number to convert
 *Return: string of charcters
 */
 char *_itoa(int n)
