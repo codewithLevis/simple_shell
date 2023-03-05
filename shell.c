@@ -10,7 +10,7 @@
 int main(__attribute__((unused))int argc, char *argv[])
 {
 	ShellData data;
-	
+
 	signal(SIGINT, sigint_handler);
 	assign(&data, argv);
 	program_integration(&data);
