@@ -9,7 +9,7 @@
 char *generate_cd_err(ShellData *ptr)
 {
 	int len, len_id;
-	char *err, *str, *msg, *args, *arg_in, arg_in1;
+	char *err, *str, *msg, *args, *arg_in, *arg_in1;
 
 	str = _itoa(ptr->command_counter);
 
