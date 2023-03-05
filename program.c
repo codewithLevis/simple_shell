@@ -93,10 +93,10 @@ void program_integration(ShellData *ptr)
 			(*ptr).command_counter += 1;
 			free(input);
 		}
-		else
+		/*else
 		{
 			flag = 0;
 			free(input);
-		}
+		}*/
 	}
 }
