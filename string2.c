@@ -28,7 +28,7 @@ char *_strncpy(char *dest, char *src, int n)
 */
 char *_strchr(char *s, char c)
 {
-	while(*s)
+	while (*s)
 	{
 		if (*s == c)
 			return (s);
@@ -101,35 +101,35 @@ char *_strndup(char *str, int i)
 
 	for (j = 0; j < i; j++)
 		copy[j] = str[j];
-	
+
 	copy[j] = '\0';
 	return (copy);
 }
 /**
 *_realloc_double_ptr - reallocates a memory block of a double pointer.
-*@old_ptr: double pointer to the memory previously allocated.
-*@old_size_bytes: size, in bytes, of the allocated space of old_ptr.
-*@new_size_bytes: new size, in bytes, of the new memory block.
+*@optr: double pointer to the memory previously allocated.
+*@obyte: size, in bytes, of the allocated space of old_ptr.
+*@nbyte: new size, in bytes, of the new memory block.
 *Return: Returns old_ptr.
 *If new_size_bytes == old_size_bytes, returns old_ptr without changes.
 *If malloc fails, returns NULL.
 */
-char **_realloc_double_ptr(char **old_ptr, unsigned int old_bytes, unsigned int new_bytes)
+char **_realloc_double_ptr(char **optr, unsigned int obytes, unsigned int nbytes)
 {
 	char **new_ptr;
 	unsigned int i;
 
-	if (old_ptr == NULL)
-		return (malloc(sizeof(char *) * new_bytes));
-	if (new_bytes == old_bytes)
-		return (old_ptr);
-	new_ptr = malloc(sizeof(char *) * new_bytes);
+	if (optr == NULL)
+		return (malloc(sizeof(char *) * nbyte));
+	if (nbyte == obyte)
+		return (optr);
+	new_ptr = malloc(sizeof(char *) * nbyte);
 	if (new_ptr == NULL)
 		return (NULL);
-	for (i = 0; i < old_bytes; i++)
-		new_ptr[i] = old_ptr[i];
+	for (i = 0; i < obyte; i++)
+		new_ptr[i] = optr[i];
 
-	free(old_ptr);
+	free(optr);
 
 	return (new_ptr);
 }
