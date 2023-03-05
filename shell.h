@@ -24,7 +24,7 @@ void sigint_handler(int signum);
 *@user_input: pointer to user's input, typically read from command line
 *@command_counter: number of commands executed by the shell program
 *@command_line_args: pointer to command-line arguments passed to the program
-*@int exit_status: exit status of last executed command
+*@exit_status: exit status of last executed command
 *@parsed_input_args: pointer to individual arguments parsed from user's input
 *@process_id:  pointer to process ID (PID) of the shell program
 *@environment_vars: pointer to environ variables passed to the shell program
