@@ -6,7 +6,7 @@
 *Return: void
 */
 
-void sigint_handler(int signum)
+void sigint_handler(__attribute__((unused))int signum)
 {
 	dprintf(STDOUT_FILENO, "\n~$ ");
 }
