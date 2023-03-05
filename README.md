@@ -11,6 +11,6 @@ display the current working directory using pwd, and exit the shell using exit.
 ## Limitations
 As a basic implementation, there are a few limitations to be aware of. The shell does not support advanced features.
 ## Contribution
-We welcome any contribution to the project. If you notice any issues or have suggestions 
-on how to improve the shell, you can submit a pull request or open an issue. Let's work 
+We welcome any contribution to the project. If you notice any issues or have suggestions
+on how to improve the shell, you can submit a pull request or open an issue. Let's work
 together to make this shell better!
