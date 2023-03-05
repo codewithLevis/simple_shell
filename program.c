@@ -35,6 +35,7 @@ char *read_input(int *ctrl_d)
 char *remove_comment(char *input)
 {
 	int i = 0, comment_start = 0;
+
 	while (input[i] != '\0')
 	{
 		if (input[i] == '#')
@@ -61,7 +62,8 @@ char *remove_comment(char *input)
 
 
 /**
-*program_integration - repeatedly prompts the user for input, reads the input, and executes it
+*program_integration - repeatedly prompts
+*the user for input, reads the input, and executes it
 *@ptr: pointer to the ShellData struct
 *Return: void
 */
