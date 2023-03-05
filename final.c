@@ -138,6 +138,7 @@ int execute_cmd(ShellData *shell_data)
 	char *directory, *arg_in = shell_data->parsed_input_args[0];
 	char **envp = shell_data->environment_vars;
 
+	(void) wait_pid;
 	exec_flag = is_command_executable(arg_in, shell_data);
 	if (exec_flag == -1)
 		return (1);
