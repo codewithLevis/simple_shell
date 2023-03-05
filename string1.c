@@ -47,35 +47,36 @@ int get_int_length(int num)
 *@num: number to convert
 *Return: string of charcters
 */
-char *_itoa(int num)
+char *_itoa(int n)
 {
-	unsigned int num_abs;
-	int len = get_int_length(num);
-	char *str;
+	char *buffer;
+	unsigned int n_abs = (n < 0) ? -n : n;
+	int i, len = get_int_length(n_abs);
 
-	str = malloc(sizeof(char) * (len + 1));
-	if (str == NULL)
+	if (n < 0)
+		len++;
+
+	buffer = (char *) malloc(len + 1);
+
+	if (buffer == NULL)
+	{
 		return (NULL);
-	str[len] = '\0';
-
-	if (num < 0)
-	{
-		num_abs = num * -1;
-		str[0] = '-';
 	}
-	else
-		num_abs = num;
+	buffer[len] = '\0';
 
-	len -= 1;
+	i = len - 1;
 
-	while (num_abs > 0)
+	do {
+		buffer[i--] = (n_abs % 10) + '0';
+		n_abs /= 10;
+	} while (n_abs > 0);
+
+	if (n < 0)
 	{
-		str[len] = (num_abs % 10) + '0';
-		num_abs /= 10;
-		len--;
+		buffer[0] = '-';
 	}
 
-	return (str);
+	return (buffer);
 }
 
 /**
