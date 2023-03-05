@@ -28,7 +28,7 @@ char **my_reallocate(char **ptr, unsigned int old_len, unsigned int new_len)
 		old_len = new_len;
 
 	for (i = 0; i < old_len; i++)
-		new_arr[i] = ptr_arr[i];
+		new_arr[i] = ptr[i];
 
 	free(ptr);
 	return (new_arr);
