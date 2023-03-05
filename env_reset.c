@@ -27,7 +27,8 @@ int _setenv(ShellData *ptr)
 {
 	int i;
 	char *var_env, *name_env;
-	char *name, *value;
+	char *name, *value, ***env;
+
 	if (ptr->parsed_input_args[1] == NULL || ptr->parsed_input_args[2] == NULL)
 	{
 		handle_error(ptr, -1);
@@ -50,10 +51,11 @@ int _setenv(ShellData *ptr)
 		}
 		free(var_env);
 	}
-
-	ptr->environment_vars = _realloc_double_ptr(ptr->environment_vars, i, sizeof(char *) * (i + 2));
-	ptr->environment_vars[i] = _create_env_var(name, value);
-	ptr->environment_vars[i + 1] = NULL;
+	
+	env = &ptr->environment_vars;
+	env = _realloc_double_ptr(env, i, sizeof(char *) * (i + 2));
+	env= _create_env_var(name, value);
+	env[i + 1] = NULL;
 
 	return (1);
 }
@@ -75,24 +77,19 @@ int _unsetenv(ShellData *ptr)
 		return (1);
 	}
 
-	k = -1;
-	i = 0;
+	k = -1, i = 0;
 	while (ptr->environment_vars[i])
 	{
 		var = _strdup(ptr->environment_vars[i]);
 		name = my_strtok(var, "=");
 		if (_strcmp(name, ptr->parsed_input_args[1]) == 0)
 			k = i;
-
 		free(var);
 		i++;
 	}
 
 	if (k == -1)
-	{
-		handle_error(ptr, -1);
-		return (1);
-	}
+		handle_error(ptr, -1), return (1);
 
 	new_environment_vars = malloc(sizeof(char *) * i);
 	i = j = 0;
@@ -154,7 +151,7 @@ char *_getenv(const char *value, char **env)
 void _set2env(char *key, char *value, ShellData *ptr)
 {
 	int index, len_env;
-	char *curr_value, *curr_key;
+	char *curr_value, *curr_key, ***env;
 
 	len_env = 0;
 	while ((*ptr).environment_vars[len_env] != NULL)
@@ -178,7 +175,8 @@ void _set2env(char *key, char *value, ShellData *ptr)
 		free(curr_value);
 	}
 
-	(*ptr).environment_vars = my_reallocate((*ptr).environment_vars, len_env, sizeof(char *) * (len_env + 2));
-	(*ptr).environment_vars[len_env] = _create_env_var(key, value);
-	(*ptr).environment_vars[len_env + 1] = NULL;
+	env = &(*ptr).environment_vars;
+	env = my_reallocate(env, len_env, sizeof(char *) * (len_env + 2));
+	env[len_env] = _create_env_var(key, value);
+	env[len_env + 1] = NULL;
 }
