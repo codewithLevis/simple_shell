@@ -3,7 +3,7 @@
 /**
 *check_first_character - check if first character are non-white a space (| & ;)
 *@input: pointer input string
-*@offset: pointer that will be used to return the 
+*@offset: pointer that will be used to return the
 *index of the first non-whitespace character in the input string
 *Return: -1 (success) or 0 (not true)
 */
@@ -32,20 +32,20 @@ int check_first_character(char *input, int *offset)
 }
 
 /**
-*print_shell_error - generate an error message 
+*print_shell_error - generate an error message
 *that provides context about the syntax error
 *@ptr_data: pointer to struct ShellData
 *@input: pointer to user's input string
-*@idx: represents the index of the character in 
+*@idx: represents the index of the character in
 *the input string that caused the syntax error
-*@t_msg:  integer that is either 0 or 1 and is used to determine 	
+*@t_msg: integer that is either 0 or 1 and is used to determine
 *whether a repeated sequence of a symbol is involved in the syntax error
 *Return: void
 */
 
 void print_shell_error(ShellData *ptr_data, char *input, int idx, int t_msg)
 {
-	char *m, *m2, *m3, *err, *counter;
+	char *m, *m2, *m3, *err, *counter, **shell;
 	int length;
 
 	if (input[idx] == ';')
@@ -57,7 +57,7 @@ void print_shell_error(ShellData *ptr_data, char *input, int idx, int t_msg)
 	}
 
 	if (input[idx] == '|')
-		m= (input[idx + 1] == '|' ? "||" : "|");
+		m = (input[idx + 1] == '|' ? "||" : "|");
 
 	if (input[idx] == '&')
 		m = (input[idx + 1] == '&' ? "&&" : "&");
@@ -75,7 +75,8 @@ void print_shell_error(ShellData *ptr_data, char *input, int idx, int t_msg)
 		return;
 	}
 	
-	sprintf(err, "%s: %s%s%s%s", ptr_data->command_line_args[0], counter, m2, m, m3); 
+	shell = ptr_data->command_line_args[0];
+	sprintf(err, "%s: %s%s%s%s", shell, counter, m2, m, m3);
 	err[length] = '\0';
 	dprintf(STDERR_FILENO, "%s ", err);
 	free(err);
@@ -97,7 +98,7 @@ int duplicates(char *input, int i)
 		i++;
 		input--;
 	}
-    return (i);
+	return (i);
 }
 	
 /**
@@ -122,18 +123,15 @@ int check_separator(char *input, int i, char offset)
 			i++;
 			continue;
 		}
-		
 		if (*input == ';')
 		{
 			if (offset == '|' || offset == '&' || offset == ';')
 				return (i);
 		}
-
 		else if (*input == '|')
 		{
 			if (offset == ';' || offset == '&')
 				return (i);
-
 			if (offset == '|')
 			{
 				count = duplicates(input, 0);
@@ -145,7 +143,6 @@ int check_separator(char *input, int i, char offset)
 		{
 			if (offset == ';' || offset == '|')
 				return (i);
-
 			if (offset == '&')
 			{
 				count = duplicates(input, 0);
@@ -153,12 +150,10 @@ int check_separator(char *input, int i, char offset)
 					return (i);
 			}
 		}
-
 		offset = *input;
 		input++;
 		i++;
 	}
-
 	return (0);
 }
 
@@ -185,6 +180,6 @@ int find_syntax_error(ShellData *ptr_data, char *input)
 	{
 		print_shell_error(ptr_data, input, offset, 1);
 		return (1);
-    }
-    return (0);
+	}
+	return (0);
 }
