@@ -56,36 +56,24 @@ int parse_vars(VarNode_t **head, char *input, char *status, ShellData *ptr)
 	
 	for (i = 0; input[i]; i++)
 	{
-		switch (input[i])
+		if (input[i] == '$')
 		{
-			case '$':
-				if (input[i + 1] == '?')
-				{
-					add_node(head, 2, status, status_len);
-					i++;
-				}
-				else if (input[i + 1] == '$')
-				{
-					add_node(head, 2, ptr->process_id, pid_len);
-					i++;
-				}
-				else if (input[i + 1] == '\n' || input[i + 1] == '\0')
-				{
-					add_node(head, 0, NULL, 0);
-				}
-				else if (input[i + 1] == ' ' || input[i + 1] == '\t' || input[i + 1] == ';')
-					add_node(head, 0, NULL, 0);
-				else
-				{
-					search_env_var(head, input + i, ptr);
-				}
-				break;
-			default:
-				break;
+			if (input[i + 1] == '?')
+				add_node(head, 2, status, status_len);
+
+			else if (input[i + 1] == '$')
+				add_node(head, 2, ptr->process_id, pid_len);
+
+			else if (input[i + 1] == '\n' || input[i + 1] == '\0')
+				add_node(head, 0, NULL, 0);
+
+			else if (input[i + 1] == ' ' || input[i + 1] == '\t' || input[i + 1] == ';')
+				add_node(head, 0, NULL, 0);
+			else
+				search_env_var(head, input + i, ptr);
 		}
-		index++;
 	}
-	return (index);
+	return (i);
 }
 
 /**
