@@ -18,7 +18,8 @@ void print_help(void)
 void print_help_exit(void)
 {
 	dprintf(STDOUT_FILENO, "exit: exit [n]\n Exit shell.\n");
-	dprintf(STDOUT_FILENO, "Exits the shell with a status of N. If N is omitted, the exit ");
+	dprintf(STDOUT_FILENO, "Exits the shell with a status of N.");
+	dprintf(STDOUT_FILENO, "If N is omitted, the exit ");
 	dprintf(STDOUT_FILENO, "status is that of the last command executed.\n");
 }
 
@@ -48,8 +49,10 @@ void print_help_alias(void)
 void general_help(void)
 {
 	dprintf(STDOUT_FILENO, "~$ bash, version 1.0(1)-release\n");
-	dprintf(STDOUT_FILENO, "These commands are defined internally. Type 'help' to see the list.\n");
-	dprintf(STDOUT_FILENO, "Type 'help name' to find out more about the function 'name'.\n\n");
+	dprintf(STDOUT_FILENO, "These commands are defined internally.");
+	dprintf(STDOUT_FILENO, "Type 'help' to see the list.\n");
+	dprintf(STDOUT_FILENO, "Type 'help name' to find out more")
+	dprintf(STDOUT_FILENO, " about the function 'name'.\n\n");
 	dprintf(STDOUT_FILENO, "alias: alias [name=['string']]\n");
 	dprintf(STDOUT_FILENO, "cd: cd [-L|[-P [-e]] [-@]] [dir]\n");
 	dprintf(STDOUT_FILENO, "exit: exit [n]\n");
