@@ -169,7 +169,6 @@ int execute_cmd(ShellData *shell_data)
 			wait_pid = waitpid(pid, &status, WUNTRACED);
 		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
-
 	shell_data->exit_status = (status / 256);
 	return (1);
 }
