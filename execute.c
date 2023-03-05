@@ -163,7 +163,7 @@ int execute_commands(ShellData *ptr, char *input)
 {
 	SeparatorNode *head = NULL, *curr;
 	CommandLineNode *start = NULL, *temp;
-	int flag;
+	int flag = 0;
 	
 	parse_input(&head, &start, input);
 	curr = head;
