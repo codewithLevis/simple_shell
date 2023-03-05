@@ -142,7 +142,7 @@ char *_getenv(const char *value, char **env)
 
 /**
 * _set2env - sets an environment variable
-*ptr: shell pointer
+*@ptr: shell pointer
 * @key: name of the variable to be set
 * @value: value to be set for the variable
 * Return: no return
