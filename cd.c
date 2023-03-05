@@ -7,16 +7,12 @@
  */
 void cd_parent_dir(ShellData *ptr)
 {
-	char current_dir[PATH_MAX];
-	char *directory, *cwd_copy, *pwd_copy;
+	char current_dir[PATH_MAX], *directory, *cwd_copy, *pwd_copy;
 
 	getcwd(current_dir, sizeof(current_dir));
 	cwd_copy = _strdup(current_dir);
-
 	_set2env("OLDPWD", cwd_copy, ptr);
-
 	directory = ptr->parsed_input_args[1];
-
 	/* If the directory is "." do nothing. */
 	if (_strcmp(".", directory) == 0)
 	{
@@ -24,18 +20,15 @@ void cd_parent_dir(ShellData *ptr)
 		free(cwd_copy);
 		return;
 	}
-
 	/* If the directory is "/" and the current directory is also "/", do nothing. */
 	if (_strcmp("/", cwd_copy) == 0)
 	{
 		free(cwd_copy);
 		return;
 	}
-
 	/* Reverse the current working directory string. */
 	pwd_copy = cwd_copy;
 	_strrev(pwd_copy);
-
 	/* Get the parent directory. */
 	pwd_copy = my_strtok(pwd_copy, "/");
 	if (pwd_copy != NULL)
@@ -45,18 +38,12 @@ void cd_parent_dir(ShellData *ptr)
 		if (pwd_copy != NULL)
 			_strrev(pwd_copy);
 	}
-
 	/* Change to the parent directory and update the PWD environment variable. */
 	if (pwd_copy != NULL)
-	{
-		chdir(pwd_copy);
-		_set2env("PWD", pwd_copy, ptr);
-	}
+		chdir(pwd_copy), _set2env("PWD", pwd_copy, ptr);
+
 	else
-	{
-		chdir("/");
-		_set2env("PWD", "/", ptr);
-	}
+		chdir("/"), _set2env("PWD", "/", ptr);
 
 	(*ptr).exit_status = 0;
 	free(cwd_copy);
@@ -78,7 +65,7 @@ void cd_change_dir(ShellData *ptr)
 	/* Get the specified directory from the argument list.*/
 	specified_dir = (*ptr).parsed_input_args[1];
 
-	/*Try to change the current working directory to the specified directory.*/
+	/*changing the current working dir to the specified dir.*/
 	if (chdir(specified_dir) == -1)
 	{
 		handle_error(ptr, 2);
@@ -106,49 +93,49 @@ void cd_change_dir(ShellData *ptr)
  */
 void cd_prev_dir(ShellData *ptr)
 {
-    char cwd[PATH_MAX];
-    char *oldpwd_value, *new_pwd, *old_pwd;
+	char cwd[PATH_MAX];
+	char *oldpwd_value, *new_pwd, *old_pwd;
 
-    if (getcwd(cwd, sizeof(cwd)) == NULL)
-    {
-	perror("getcwd() error");
-	return;
-    }
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+	{
+		perror("getcwd() error");
+		return;
+	}
 
-    oldpwd_value = _getenv("OLDPWD", (*ptr).environment_vars);
+	oldpwd_value = _getenv("OLDPWD", (*ptr).environment_vars);
 
-    if (oldpwd_value == NULL)
-    {
-        fprintf(stderr, "OLDPWD not set\n");
-        return;
-    }
+	if (oldpwd_value == NULL)
+	{
+		dprintf(STDERR_FILENO, "OLDPWD not set\n");
+		return;
+	}
 
-    old_pwd = _strdup(cwd);
+	old_pwd = _strdup(cwd);
 
-    if (chdir(oldpwd_value) == -1)
-    {
-        perror("chdir() error");
-        free(old_pwd);
-        return;
-    }
+	if (chdir(oldpwd_value) == -1)
+	{
+		perror("chdir() error");
+		free(old_pwd);
+		return;
+	}
 
-    new_pwd = _strdup(oldpwd_value);
-    _set2env("PWD", new_pwd, ptr);
-    _set2env("OLDPWD", old_pwd, ptr);
+	new_pwd = _strdup(oldpwd_value);
+	_set2env("PWD", new_pwd, ptr);
+	_set2env("OLDPWD", old_pwd, ptr);
 
-    printf("%s\n", new_pwd);
+	printf("%s\n", new_pwd);
 
-    free(old_pwd);
-    free(new_pwd);
+	free(old_pwd);
+	free(new_pwd);
 
-    ptr->exit_status = 0;
+	ptr->exit_status = 0;
 }
 
 /**
- * cd_home_dir - changes to home directory
- * @ptr: pointer to struct shell
- * Return: void
- */
+* cd_home_dir - changes to home directory
+* @ptr: pointer to struct shell
+* Return: void
+*/
 void cd_home_dir(ShellData *ptr)
 {
 	char *previous_pwd, *home_dir;
