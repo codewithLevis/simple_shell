@@ -8,5 +8,5 @@
 
 void sigint_handler(int signum)
 {
-	dprintf(STDOUT_FILENO, "\nShell interrupted on signal %d (SIGINT).\n~$ ", signum);
+	dprintf(STDOUT_FILENO, "\n~$ ");
 }
