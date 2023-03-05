@@ -114,7 +114,7 @@ char *_strndup(char *str, int i)
 *If new_size_bytes == old_size_bytes, returns old_ptr without changes.
 *If malloc fails, returns NULL.
 */
-char **_realloc_double_ptr(char **optr, unsigned int obytes, unsigned int nbytes)
+char **_realloc_double_ptr(char **optr, unsigned int obyte, unsigned int nbyte)
 {
 	char **new_ptr;
 	unsigned int i;
