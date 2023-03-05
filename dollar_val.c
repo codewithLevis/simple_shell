@@ -32,8 +32,12 @@ void search_env_var(VarNode_t **start, char *in, ShellData *ptr)
 	}
 
 	j = 0;
-	while ( in[j] && in[j] != ' ' && in[j] != '\t' && in[j] != ';' && in[j] != '\n')
+	while (in[j] != '\0')
+	{
+		if (in[j] != ' ' || in[j] != '\t' || in[j] != ';' || in[j] != '\n')
+			break;
 		j++;
+	}
 	add_node(start, j, NULL, 0);
 }
 
