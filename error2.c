@@ -41,11 +41,12 @@ char *env_err(ShellData *ptr)
 {
 	int len;
 	char *err;
-	char *str, *msg;
+	char *str, *msg, *args, *arg_in;
 
 	str = _itoa(ptr->command_counter);
 	msg = ": Unable to add/remove from environment\n";
-	len = _strlen(ptr->command_line_args[0]) + _strlen(str) + _strlen(ptr->parsed_input_args[0]) + _strlen(msg) + 2;
+	len = _strlen(ptr->command_line_args[0]) + _strlen(str);
+	len += _strlen(ptr->parsed_input_args[0]) + _strlen(msg) + 2;
 	err = malloc(sizeof(char) * (len + 1));
 
 	if (err == NULL)
@@ -54,7 +55,9 @@ char *env_err(ShellData *ptr)
 		free(str);
 		return (NULL);
 	}
-	sprintf(err, "%s: %s: %s%s", ptr->command_line_args[0], str, ptr->parsed_input_args[0], msg);
+	args = ptr->command_line_args[0];
+	arg_in = ptr->parsed_input_args[0];
+	sprintf(err, "%s: %s: %s%s", args, str, arg_in, msg);
 	free(str);
 	return (err);
 }
@@ -77,9 +80,9 @@ char *path_126_err(ShellData *ptr)
 	err = malloc(sizeof(char) * (length + 1));
 	if (err == NULL)
 	{
-	free(err);
-	free(counter_str);
-	return NULL;
+		free(err);
+		free(counter_str);
+		return (NULL);
 	}
 	sprintf(err, "%s: %s: %s: Permission denied\n",
 	    ptr->command_line_args[0], counter_str, ptr->command_line_args[0]);
@@ -97,16 +100,18 @@ char *not_found_err(ShellData *ptr)
 	int len;
 	char *err;
 	char *str;
+	char *args = ptr->command_line_args[0];
+	char *arg_in = ptr->parsed_input_args[0];
 
 	str = _itoa(ptr->command_counter);
-	len =  _strlen(ptr->command_line_args[0]) + _strlen(str)+ _strlen(ptr->command_line_args[0]) + 1;
+	len =  _strlen(args) + _strlen(str) + _strlen(arg_in) + 1;
 	err = malloc(sizeof(char) * (len + 14));
 	if (err== NULL)
 	{
 		free(str);
 		return NULL;
 	}
-	sprintf(err, "%s: %s: %s: not found\n",ptr->command_line_args[0], str, ptr->parsed_input_args[0]);
+	sprintf(err, "%s: %s: %s: not found\n", args, str, arg_in);
 	free(str);
 	return (err);
 }
@@ -123,18 +128,20 @@ char *exit_shell_err(ShellData *ptr)
 	int len;
 	char *err;
 	char *str;
+	char *args = ptr->command_line_args[0];
+	char *arg_in = ptr->parsed_input_args[0];
+	char *arg_in1 = ptr->parsed_input_args[1];
 
 	str = _itoa(ptr->command_counter);
-	len = _strlen(ptr->command_line_args[0]) + _strlen(str) + _strlen(ptr->parsed_input_args[0]);
-	len += _strlen(ptr->parsed_input_args[1]) + 1;
+	len = _strlen(args) + _strlen(str) + _strlen(arg_in);
+	len += _strlen(arg_in1) + 1;
 	err = malloc(sizeof(char) * (len + 18));
 	if (err == NULL)
 	{
 		free(str);
 		return (NULL);
 	}
-	sprintf(err, "%s: %s: %s: Illegal number: %s\n", ptr->command_line_args[0], 
-		str, ptr->parsed_input_args[0], ptr->parsed_input_args[1]);
+	sprintf(err, "%s: %s: %s: Illegal number: %s\n", args, str, arg_in, arg_in1);
 	free(str);
 	return (err);
 }
