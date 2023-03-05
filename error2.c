@@ -106,10 +106,10 @@ char *not_found_err(ShellData *ptr)
 	str = _itoa(ptr->command_counter);
 	len =  _strlen(args) + _strlen(str) + _strlen(arg_in) + 1;
 	err = malloc(sizeof(char) * (len + 14));
-	if (err== NULL)
+	if (err == NULL)
 	{
 		free(str);
-		return NULL;
+		return (NULL);
 	}
 	sprintf(err, "%s: %s: %s: not found\n", args, str, arg_in);
 	free(str);
