@@ -54,7 +54,7 @@ int _setenv(ShellData *ptr)
 	
 	env = ptr->environment_vars;
 	env = _realloc_double_ptr(env, i, sizeof(char *) * (i + 2));
-	env= _create_env_var(name, value);
+	env[i] = _create_env_var(name, value);
 	env[i + 1] = NULL;
 	ptr->environment_vars = env;
 	return (1);
