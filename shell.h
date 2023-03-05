@@ -29,7 +29,7 @@ void sigint_handler(int signum);
 *@process_id:  pointer to process ID (PID) of the shell program
 *@environment_vars: pointer to environ variables passed to the shell program
 */
-typedef struct
+typedef struct ShellData
 {
 	int command_counter;
 	int exit_status;
@@ -195,7 +195,7 @@ char *_strncpy(char *dest, char *src, int n);
 char *_strchr(char *s, char c);
 char *my_strtok(char *str, const char *delim);
 char *_strndup(char *str, int i);
-char **_realloc_double_ptr(char **optr, unsigned int obyte, unsigned int nbyte);
+char **_realloc_double_ptr(char **opt, unsigned int obyte, unsigned int nbyte);
 
 /*string3.c*/
 int _isdigit(const char *s);
