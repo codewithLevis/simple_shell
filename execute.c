@@ -36,14 +36,14 @@ char *encoder(char *input, int encode)
 		{
 			if (input[i] == '|')
 			{
-				if (input[i+1] != '|')
+				if (input[i + 1] != '|')
 					input[i] = 16;
 				else
 					i++;
 			}
 			else if (input[i] == '&')
 			{
-				if (input[i+1] != '&')
+				if (input[i + 1] != '&')
 					input[i] = 12;
 				else
 					i++;
@@ -68,6 +68,7 @@ void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
 	int i = 0;
 	char delim[4] = ";|&";
 	char *sep_token; /*token based on separators*/
+
 	input = encoder(input, 0);
 
 	i = 0;
