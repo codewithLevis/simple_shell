@@ -22,11 +22,6 @@ char *read_input(int *ctrl_d)
 
 	*ctrl_d = getline(&input, &buf, stdin);
 
-	if (input[*ctrl_d - 1] == '\n')
-	{
-		input[*ctrl_d - 1] = '\0';
-	}
-
 	return (input);
 }
 
@@ -78,7 +73,7 @@ void program_integration(ShellData *ptr)
 
 	while(flag == 1)
 	{
-		//if (isatty(STDIN_FILENO))
+		if (isatty(STDIN_FILENO))
 			prompt();
 
 		input = read_input(&ctrl_d);
