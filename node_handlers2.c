@@ -1,7 +1,8 @@
 #include "shell.h"
 
 /**
-*free_SeparatorNode_list - Frees the memory allocated for the separator node list
+*free_SeparatorNode_list - Frees the memory allocated
+*for the separator node list
 *@head: Pointer to the head of the separator node list
 *Return: void
 */
@@ -10,6 +11,7 @@ void free_SeparatorNode_list(SeparatorNode **head)
 {
 	SeparatorNode *temp;
 	SeparatorNode *curr;
+
 	if (head != NULL)
 	{
 		curr = *head;
@@ -23,8 +25,9 @@ void free_SeparatorNode_list(SeparatorNode **head)
 }
 
 /**
-*free_CommandLineNode_list - Frees the memory allocated for the command node list
-*@head: Pointer to the head of the command node list
+*free_CommandLineNode_list - Frees the memory
+*allocated for the command node list
+*@start: Pointer to the head of the command node list
 *Return: void
 */
 void free_CommandLineNode_list(CommandLineNode **start)
