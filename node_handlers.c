@@ -66,28 +66,31 @@ void free_VarNode_t(VarNode_t **start)
 */
 CommandLineNode *add_CommandLineNode(CommandLineNode **start, char *command)
 {
-    if (*start == NULL) {
-        *start = malloc(sizeof(CommandLineNode));
-        if (*start == NULL)
-            return NULL;
-        (*start)->command = command;
-        (*start)->next = NULL;
-        return *start;
-    }
+	if (*start == NULL)
+	{
+		*start = malloc(sizeof(CommandLineNode));
+		if (*start == NULL)
+			return NULL;
+		(*start)->command = command;
+		(*start)->next = NULL;
+		return (*start);
+	}
 
-    CommandLineNode *new_node = malloc(sizeof(CommandLineNode));
-    if (new_node == NULL)
-        return NULL;
+	CommandLineNode *new_node = malloc(sizeof(CommandLineNode));
 
-    new_node->command = command;
-    new_node->next = NULL;
+	if (new_node == NULL)
+		return NULL;
 
-    CommandLineNode *curr = *start;
-    while (curr->next != NULL)
-        curr = curr->next;
+	new_node->command = command;
+	new_node->next = NULL;
 
-    curr->next = new_node;
-    return *start;
+	CommandLineNode *curr = *start;
+
+	while (curr->next != NULL)
+		curr = curr->next;
+
+	curr->next = new_node;
+	return (*start);
 }
 
 /**
@@ -116,6 +119,6 @@ SeparatorNode *add_SeparatorNode(SeparatorNode **head, char symbol)
 
 		current_node->next = new_node;
 	}
-	
+
 	return (*head);
 }
