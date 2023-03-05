@@ -66,6 +66,7 @@ void free_VarNode_t(VarNode_t **start)
 */
 CommandLineNode *add_CommandLineNode(CommandLineNode **start, char *command)
 {
+	CommandLineNode *new_node, *curr;
 	if (*start == NULL)
 	{
 		*start = malloc(sizeof(CommandLineNode));
@@ -76,7 +77,7 @@ CommandLineNode *add_CommandLineNode(CommandLineNode **start, char *command)
 		return (*start);
 	}
 
-	CommandLineNode *new_node = malloc(sizeof(CommandLineNode));
+	new_node = malloc(sizeof(CommandLineNode));
 
 	if (new_node == NULL)
 		return (NULL);
@@ -84,7 +85,7 @@ CommandLineNode *add_CommandLineNode(CommandLineNode **start, char *command)
 	new_node->command = command;
 	new_node->next = NULL;
 
-	CommandLineNode *curr = *start;
+	curr = *start;
 
 	while (curr->next != NULL)
 		curr = curr->next;
