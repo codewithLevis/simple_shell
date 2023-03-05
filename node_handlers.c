@@ -70,7 +70,7 @@ CommandLineNode *add_CommandLineNode(CommandLineNode **start, char *command)
 	{
 		*start = malloc(sizeof(CommandLineNode));
 		if (*start == NULL)
-			return NULL;
+			return (NULL);
 		(*start)->command = command;
 		(*start)->next = NULL;
 		return (*start);
@@ -79,7 +79,7 @@ CommandLineNode *add_CommandLineNode(CommandLineNode **start, char *command)
 	CommandLineNode *new_node = malloc(sizeof(CommandLineNode));
 
 	if (new_node == NULL)
-		return NULL;
+		return (NULL);
 
 	new_node->command = command;
 	new_node->next = NULL;
