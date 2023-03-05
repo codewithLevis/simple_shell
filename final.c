@@ -1,6 +1,6 @@
 #include "shell.h"
 
-/*
+/**
 *is_command_executable - checks if a command is executable by verifying if the
 *@command: parsed user input as a result of separator operators
 *@ptr: pointer to shell
@@ -121,9 +121,7 @@ char *get_path(char *cmd, char **envp)
 *execute_cmd - to execute a shell command given
 *its arguments, wait for the command to complete
 *and set the status of the data_shell struct accordingly
-*@arg: parsed input
-*@environ_vars: environment variables
-*@ptr: pointer to shell struct
+*@shell_data: pointer to shell struct
 *Return: first checks if the command is executable and returns 1 if not
 *then, it checks if the command exists
 *in the PATH environment variable and sets its path accordingly
