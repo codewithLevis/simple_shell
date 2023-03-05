@@ -20,7 +20,7 @@ extern char **environ;
 void sigint_handler(int signum);
 
 /**
-*typedef struct ShellData - set of variables commonly used in a shell program
+*struct ShellData - set of variables commonly used in a shell program
 *@user_input: pointer to user's input, typically read from command line
 *@command_counter: number of commands executed by the shell program
 *@command_line_args: pointer to command-line arguments passed to the program
@@ -195,7 +195,7 @@ char *_strncpy(char *dest, char *src, int n);
 char *_strchr(char *s, char c);
 char *my_strtok(char *str, const char *delim);
 char *_strndup(char *str, int i);
-char **_realloc_double_ptr(char **old_ptr, unsigned int old_bytes, unsigned int new_bytes);
+char **_realloc_double_ptr(char **optr, unsigned int obyte, unsigned int nbyte);
 
 /*string3.c*/
 int _isdigit(const char *s);
