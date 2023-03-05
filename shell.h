@@ -27,7 +27,7 @@ void sigint_handler(int signum);
 *@int exit_status: exit status of last executed command
 *@parsed_input_args: pointer to individual arguments parsed from user's input
 *@process_id:  pointer to process ID (PID) of the shell program
-*@environment_vars: pointer to environment variables passed to the shell program
+*@environment_vars: pointer to environ variables passed to the shell program
 */
 typedef struct
 {
@@ -55,14 +55,18 @@ typedef struct Builtin
 } Builtin;
 
 /**
-*struct VarNode_t - represents a node in a singly linked list that stores variables
+*struct VarNode_t - represents a node in a singly
+*linked list that stores variables
 *@len_var: length of the variable
 *@val: value of the variable
 *@len_val: length of the value
 *@next: pointer to the next node in the list
-*Description: This struct defines a node in a singly linked list used to store variables.
-*The len_var field holds the length of the variable, the val field holds the value of the variable,
-*the len_val field holds the length of the value, and the next field points to the next node in the list.
+*Description: This struct defines a node in a singly
+*linked list used to store variables.
+*The len_var field holds the length of the variable,
+*the val field holds the value of the variable,
+*the len_val field holds the length of the value,
+*and the next field points to the next node in the list.
 */
 typedef struct VarNode_t
 {
@@ -90,7 +94,8 @@ typedef struct SeparatorNode
 *struct CommandLineNode - singly linked list for command lines
 *@command: the command line string
 *@next: pointer to the next node in the list
-*A singly linked list structure used to store command lines.
+*A singly linked list
+*structure used to store command lines.
 */
 typedef struct CommandLineNode
 {
@@ -197,7 +202,7 @@ int _isdigit(const char *s);
 int _strcmp(const char *s1, const char *s2);
 char *_strcpy(char *dest, const char *src);
 void *_realloc(void *ptr, size_t old_size, size_t new_size);
-int _atoi(const char* str);
+int _atoi(const char *str);
 
 /*string4.c*/
 void _strrev(char *str);
@@ -205,7 +210,7 @@ unsigned int _strspn(char *s, const char *accept);
 char *_strpbrk(char *s, const char *accept);
 
 /*tokenize.c*/
-char **my_reallocate(char **ptr_arr, unsigned int old_len, unsigned int new_len);
+char **my_reallocate(char **ptr, unsigned int old_len, unsigned int new_len);
 char **tokenize(char *input, const char *delim);
 
 /**
