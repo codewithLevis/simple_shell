@@ -64,7 +64,7 @@ char **tokenize(char *input, const char *delim)
 		if (i >= bufsize)
 		{
 			bufsize += TOK_BUFSIZE;
-			tokens = my_reallocate(tokens, bufsize * sizeof(char *));
+			tokens = my_reallocate(tokens, i, bufsize * sizeof(char *));
 			if (tokens == NULL)
 			{
 				dprintf(STDERR_FILENO, ": allocation error\n");
