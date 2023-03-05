@@ -59,8 +59,7 @@ int _env(ShellData *ptr)
 
 /**
  * exit_handler - Handles the exit builtin command
- * @data: A pointer to a data_shell struct
- *
+ * @ptr: A pointer to a data_shell struct
  * Return: Always returns 0 to signal the shell to exit
  */
 int exit_handler(ShellData *ptr)
@@ -78,7 +77,6 @@ int exit_handler(ShellData *ptr)
 		if (!is_digit || str_len > 10 || is_big_number)
 		{
 			handle_error(ptr, 2);
-/*dprintf(STDERR_FILENO, "hsh: %d: exit: Illegal number: %s\n", data->line_count, data->args[1]);*/
 			(*ptr).exit_status = 2;
 			return (1);
 		}
