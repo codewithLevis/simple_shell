@@ -110,7 +110,7 @@ char *_strdup(char *str)
 {
 	size_t len = _strlen(str) + 1;
 	char *dup = malloc(len * sizeof(char));
-	
+
 	if (str == NULL)
 		return (NULL);
 
