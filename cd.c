@@ -5,7 +5,7 @@
  * @ptr: Pointer to data relevant to the shell (environment variables).
  * Return: void
  */
-void cd_parent_dir(ShellData *ptr)
+void cd_p	arent_dir(ShellData *ptr)
 {
 	char current_dir[PATH_MAX], *directory, *cwd_copy, *pwd_copy;
 
@@ -20,7 +20,7 @@ void cd_parent_dir(ShellData *ptr)
 		free(cwd_copy);
 		return;
 	}
-	/* If the directory is "/" and the current directory is also "/", do nothing. */
+	/* If the dir is "/" and the current dir is also "/", do nothing. */
 	if (_strcmp("/", cwd_copy) == 0)
 	{
 		free(cwd_copy);
@@ -82,7 +82,7 @@ void cd_change_dir(ShellData *ptr)
 	_set2env("PWD", cp_specified_dir, ptr);
 	free(cp_specified_dir);
 
-	(*ptr).exit_status= 0;
+	(*ptr).exit_status = 0;
 	chdir(specified_dir);
 }
 
@@ -186,7 +186,12 @@ int change_directory(ShellData *ptr)
 	{
 		argument = (*ptr).parsed_input_args[i];
 
-		if (_strcmp("$HOME", argument) == 0 || _strcmp("~", argument) == 0 || _strcmp("--", argument) == 0)
+		if (_strcmp("$HOME", argument) == 0)
+		{
+			cd_home_dir(ptr);
+			continue;
+		}
+		if (_strcmp("~", argument) == 0 || _strcmp("--", argument) == 0)
 		{
 			cd_home_dir(ptr);
 			continue;
@@ -206,6 +211,5 @@ int change_directory(ShellData *ptr)
 
 		cd_change_dir(ptr);
 	}
-
 	return (1);
 }
