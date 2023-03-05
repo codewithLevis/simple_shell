@@ -5,7 +5,7 @@
  * @ptr: Pointer to data relevant to the shell (environment variables).
  * Return: void
  */
-void cd_p	arent_dir(ShellData *ptr)
+void cd_parent_dir(ShellData *ptr)
 {
 	char current_dir[PATH_MAX], *directory, *cwd_copy, *pwd_copy;
 
