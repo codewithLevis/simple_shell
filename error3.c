@@ -9,7 +9,7 @@
 char *generate_cd_err(ShellData *ptr)
 {
 	int len, len_id;
-	char *err, *str, *msg, *args, *arg_in;
+	char *err, *str, *msg, *args, *arg_in, arg_in1;
 
 	str = _itoa(ptr->command_counter);
 
@@ -33,8 +33,8 @@ char *generate_cd_err(ShellData *ptr)
 		free(str);
 		return (NULL);
 	}
-
-	sprintf(err, "%s: %s: %s%s%s", args, str, msg, ptr->parsed_input_args[1], "\n");
+	arg_in1 = ptr->parsed_input_args[1];
+	sprintf(err, "%s: %s: %s%s%s", args, str, msg, arg_in1, "\n");
 
 	free(str);
 	return (err);
