@@ -5,7 +5,8 @@
 *@input: input string
 *@encode: boolean indicating whether to encode or decode
 *Return: encoded or decoded string
-*The purpose of encoding the characters '|' and '&' as 0x10 and 0x0C respectively
+*The purpose of encoding the characters
+*'|' and '&' as 0x10 and 0x0C respectively
 *is likely to avoid any confusion between them and the actual '|' and '&'
 *characters used in the shell for logical OR and AND operations
 *By encoding them as different characters, the shell can still interpret
@@ -14,19 +15,16 @@
 char *encoder(char *input, int encode)
 {
 	int i;
+
 	if (encode == 1)
 	{
 		i = 0;
 		while (input[i] != '\0')
 		{
 			if (input[i] == 16)
-			{
 				input[i] = '|';
-			}
 			else if (input[i] == 12)
-			{
 				input[i] = '&';
-			}
 			i++;
 		}
 	}
@@ -39,24 +37,16 @@ char *encoder(char *input, int encode)
 			if (input[i] == '|')
 			{
 				if (input[i+1] != '|')
-				{
 					input[i] = 16;
-				}
 				else
-				{
 					i++;
-				}
 			}
 			else if (input[i] == '&')
 			{
 				if (input[i+1] != '&')
-				{
 					input[i] = 12;
-				}
 				else
-				{
 					i++;
-				}
 			}
 			i++;
 		}
@@ -79,8 +69,9 @@ void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
 	char delim[4] = ";|&";
 	char *sep_token; /*token based on separators*/
 	input = encoder(input, 0);
-	
+
 	i = 0;
+
 	while (input[i])
 	{
 		if (input[i] == ';')
@@ -94,7 +85,7 @@ void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
 		}
 		i++;
 	}
-    
+
     /*tokenize the input by separators and add to the command list*/
 	sep_token = my_strtok(input, delim);
 
@@ -105,7 +96,7 @@ void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
 		add_CommandLineNode(start, sep_token);
 		sep_token = my_strtok(NULL, delim);
 	}
-	
+
 }
 
 /**
@@ -119,34 +110,35 @@ void parse_input(SeparatorNode **head, CommandLineNode **start, char *input)
  */
 void get_next(CommandLineNode **head, SeparatorNode **start, ShellData *ptr)
 {
-        int separator_loop;
-        SeparatorNode *temp = *start;
-        CommandLineNode *curr = *head;
+	int separator_loop;
+	SeparatorNode *temp = *start;
+	CommandLineNode *curr = *head;
 
-        separator_loop = 1;
-        while (temp != NULL && separator_loop)
-        {
-                if ((*ptr).exit_status == 0)
-                {
-                        if (temp->symbol == '&' || temp->symbol == ';')
-                                separator_loop = 0;
-                        if (temp->symbol == '|')
-                                curr = curr->next, temp = temp->next;
-                }
-                else
-                {
-                        if (temp->symbol == '|' || temp->symbol == ';')
-                                separator_loop = 0;
-                        if (temp->symbol == '&')
-                                curr = curr->next, temp = temp->next;
-                }
-                if (temp != NULL && !separator_loop)
-                        temp = temp->next;
-        }
+	separator_loop = 1;
+
+	while (temp != NULL && separator_loop)
+	{
+		if ((*ptr).exit_status == 0)
+		{
+			if (temp->symbol == '&' || temp->symbol == ';')
+				separator_loop = 0;
+			if (temp->symbol == '|')
+				curr = curr->next, temp = temp->next;
+		}
+		else
+		{
+			if (temp->symbol == '|' || temp->symbol == ';')
+				separator_loop = 0;
+			if (temp->symbol == '&')
+				curr = curr->next, temp = temp->next;
+		}
+		if (temp != NULL && !separator_loop)
+			temp = temp->next;
+	}
 
 	*start = temp;
 	*head = curr;
-        
+
 }
 
 
@@ -164,11 +156,11 @@ int execute_commands(ShellData *ptr, char *input)
 	SeparatorNode *head = NULL, *curr;
 	CommandLineNode *start = NULL, *temp;
 	int flag = 0;
-	
+
 	parse_input(&head, &start, input);
 	curr = head;
 	temp = start;
-	
+
 	while (temp != NULL)
 	{
 		(*ptr).user_input = temp->command;
