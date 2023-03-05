@@ -41,13 +41,14 @@ CommandName get_shell_command_name(char *arg)
 	}
 }
 
-/** 
+/**
 *print_help_setenv - prints out help information for the "setenv" shell
 *Return: void
 */
 void print_help_setenv(void)
 {
-	dprintf(STDOUT_FILENO, "setenv: setenv (const char *name, const char *value, int replace)\n\t");
+	dprintf(STDOUT_FILENO, "setenv: setenv (const char *name, ");
+	dprintf(STDOUT_FILENO, "const char *value, int replace)\n\t");
 	dprintf(STDOUT_FILENO, "Add a new definition to the environment\n");
 }
 
@@ -74,7 +75,7 @@ void print_help_unsetenv(void)
 /**
 *print_shell_help - prints out help information for
 *a specific shell command or general shell usage.
-*@ptr: pointer to a ShellData 
+*@ptr: pointer to a ShellData
 *Return: 1 upon completion.
 */
 int print_shell_help(ShellData *ptr)
@@ -83,10 +84,7 @@ int print_shell_help(ShellData *ptr)
 	int status = 0;
 
 	if (arg == NULL)
-	{
-        	general_help();
-	}
-
+		general_help();
 	else
 	{
 		switch (get_shell_command_name(arg))
@@ -97,10 +95,10 @@ int print_shell_help(ShellData *ptr)
 			case COMMAND_ENV:
 				print_help_setenv();
 				break;
-			 case COMMAND_UNSETENV:
+			case COMMAND_UNSETENV:
 				print_help_unsetenv();
 				break;
-			 case COMMAND_HELP:
+			case COMMAND_HELP:
 				print_help();
 				break;
 			case COMMAND_EXIT:
@@ -118,7 +116,6 @@ int print_shell_help(ShellData *ptr)
 				break;
 		}
 	}
-
 	(*ptr).exit_status = status;
 	return (1);
 }
