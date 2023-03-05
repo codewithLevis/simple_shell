@@ -21,6 +21,9 @@ char *read_input(int *ctrl_d)
 	size_t buf = 0;
 
 	*ctrl_d = getline(&input, &buf, stdin);
+	
+	if (*ctrl_d == -1)
+		printf("I am -1");
 
 	return (input);
 }
@@ -93,10 +96,10 @@ void program_integration(ShellData *ptr)
 			(*ptr).command_counter += 1;
 			free(input);
 		}
-		/*else
+		else
 		{
 			flag = 0;
 			free(input);
-		}*/
+		}
 	}
 }
