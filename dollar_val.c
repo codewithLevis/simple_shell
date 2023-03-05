@@ -56,7 +56,7 @@ void search_env_var(VarNode_t **start, char *in, ShellData *ptr)
 */
 int parse_vars(VarNode_t **head, char *input, char *status, ShellData *ptr)
 {
-	int i, index = 0, status_len = 0, pid_len = 0;
+	int i, status_len = 0, pid_len = 0;
 
 	status_len = _strlen(status);
 	pid_len = _strlen(ptr->process_id);
