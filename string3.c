@@ -43,11 +43,11 @@ int _strcmp(const char *s1, const char *s2)
 *Return: dest
 */
 
-char *_strcpy(char *dest, const char *src) 
+char *_strcpy(char *dest, const char *src)
 {
 	int i = 0;
 
-	while (src[i] != '\0') 
+	while (src[i] != '\0')
 	{
 		dest[i] = src[i];
 		i++;
@@ -67,6 +67,7 @@ char *_strcpy(char *dest, const char *src)
 void *_realloc(void *ptr, size_t old_size, size_t new_size)
 {
 	void *new_ptr;
+
 	if (new_size == 0)
 	{
 		free(ptr);
@@ -98,7 +99,7 @@ void *_realloc(void *ptr, size_t old_size, size_t new_size)
 *@str: string to convert
 *Return: value converted
 */
-int _atoi(const char* str)
+int _atoi(const char *str)
 {
 	int sign = 1;
 	int result = 0;
