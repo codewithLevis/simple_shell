@@ -45,7 +45,7 @@ int check_first_character(char *input, int *offset)
 
 void print_shell_error(ShellData *ptr_data, char *input, int idx, int t_msg)
 {
-	char *m, *m2, *m3, *err, *counter, **shell;
+	char *m, *m2, *m3, *err, *counter, *shell;
 	int length;
 
 	if (input[idx] == ';')
