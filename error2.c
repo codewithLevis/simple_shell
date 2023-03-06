@@ -141,11 +141,9 @@ char *exit_shell_err(ShellData *ptr)
 		free(str);
 		return (NULL);
 	}
-	sprintf(err, "%s: %s: %s: Illegal number: %s\n", args, str, arg_in, arg_in1);
+	snprintf(err, sizeof(err), "%s: %s: %s: Illegal number: %s\n",
+		 args, str, arg_in, arg_in1);
 
-	for (i = 0; err[i] != '\n'; i++)
-		;
-	err[i] = '\0';
 	free(str);
 	return (err);
 }
