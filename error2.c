@@ -135,13 +135,13 @@ char *exit_shell_err(ShellData *ptr)
 	str = _itoa(ptr->command_counter);
 	len = _strlen(args) + _strlen(str) + _strlen(arg_in);
 	len += _strlen(arg_in1) + 1;
-	err = malloc(sizeof(char) * (len + 18));
+	err = malloc(sizeof(char) * (len + 23));
 	if (err == NULL)
 	{
 		free(str);
 		return (NULL);
 	}
-	sprintf(err, "%s: %s: %s: Illegal number: %s\n", args, str, arg_in, arg_in1);
+	sprintf(err, "%s: %s: %s: Illegal number: %s\n\0", args, str, arg_in, arg_in1);
 	free(str);
 	return (err);
 }
