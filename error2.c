@@ -125,7 +125,7 @@ char *not_found_err(ShellData *ptr)
 
 char *exit_shell_err(ShellData *ptr)
 {
-	int len, i;
+	int len;
 	char *err;
 	char *str;
 	char *args = ptr->command_line_args[0];
