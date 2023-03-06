@@ -125,7 +125,7 @@ char *not_found_err(ShellData *ptr)
 
 char *exit_shell_err(ShellData *ptr)
 {
-	int len;
+	int len, i;
 	char *err;
 	char *str;
 	char *args = ptr->command_line_args[0];
@@ -141,7 +141,11 @@ char *exit_shell_err(ShellData *ptr)
 		free(str);
 		return (NULL);
 	}
-	sprintf(err, "%s: %s: %s: Illegal number: %s\n\0", args, str, arg_in, arg_in1);
+	sprintf(err, "%s: %s: %s: Illegal number: %s\n", args, str, arg_in, arg_in1);
+
+	for (i = 0; err[i] != '\n'; i++)
+		;
+	err[i] = '\0';
 	free(str);
 	return (err);
 }
